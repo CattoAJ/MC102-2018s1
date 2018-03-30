@@ -1,0 +1,1017 @@
+% \documentclass{article}
+% \usepackage[utf8]{inputenc}
+
+% \title{MC102-2018s1-Aula09-takeaway}
+% \author{Arthur Catto}
+% \date{March 2018}
+
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Enumeração exaustiva e outras formas de aproximação\\
+    \small{MC102-2018s1-Aula09-180327-takeaway}}
+    \author{Arthur J. Catto, PhD}
+    \date{27 de março de 2018}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+%    \begin{Verbatim}[commandchars=\\\{\}]
+% {\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+%        \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
+%\end{Verbatim}
+
+
+    \section{Enumeração exaustiva e outras formas de
+aproximação}\label{enumerauxe7uxe3o-exaustiva-e-outras-formas-de-aproximauxe7uxe3o}
+
+    Computadores são ótimos para tarefas que exigem grande número de
+repetições.
+
+Segundo a Harvard Database of Useful Biological Numbers, uma pessoa
+rápida consegue piscar umas 5 vezes por segundo. Nesse mesmo tempo um
+processador moderno é capaz de executar pelo menos algumas centenas de
+milhões de instruções...
+
+Portanto, vamos botar essas máquinas pra trabalhar...
+
+    \subsection{O método da enumeração
+exaustiva}\label{o-muxe9todo-da-enumerauxe7uxe3o-exaustiva}
+
+Chama-se \emph{enumeração exaustiva} um método de solução de problemas
+em que nos aproximamos progressivamente de uma solução desejada
+examinando todos os possíveis candidatos (ou pelo menos uma parte
+considerável deles).
+
+    \subsubsection{\texorpdfstring{Exemplo: \emph{Calcular a raiz cúbica de
+um cubo inteiro
+perfeito}}{Exemplo: Calcular a raiz cúbica de um cubo inteiro perfeito}}\label{exemplo-calcular-a-raiz-cuxfabica-de-um-cubo-inteiro-perfeito}
+
+    Como o problema só fala de inteiros, este problema pode ser resolvido
+por força bruta, examinando exaustivamente todos os possíveis
+candidatos.
+
+O conjunto de candidatos pode ser limitado aos inteiros não negativos,
+se lembrarmos que quando \(x < 0\), $\sqrt[3]{x} = (-1)
+\cdot \sqrt[3]{\lvert x \rvert}$.
+
+Então, vamos lá...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz cúbica se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número inteiro: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{n}{raiz} \PY{o}{=} 
+        \PY{k}{while} \PY{p}{:}
+            \PY{n}{raiz} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{k}{if} \PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{não é um cubo perfeito!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A raiz cúbica de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{raiz}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{Solução}\label{soluuxe7uxe3o1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz cúbica se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número inteiro: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{absx} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{n}{raiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3} \PY{o}{\PYZlt{}} \PY{n}{absx}\PY{p}{:}
+            \PY{n}{raiz} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3} \PY{o}{!=} \PY{n}{absx}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{não é um cubo perfeito!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{raiz} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{raiz}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A raiz cúbica de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{raiz}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m+mi}{123456789}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+\end{Verbatim}
+
+
+    Seria possível resolver esse problema usando \texttt{for} em vez de
+\texttt{while}?
+
+Poderíamos começar com...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{k}{for} \PY{n}{raiz} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{p}{)}\PY{p}{:}
+            \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    Qual seria o argumento de \texttt{range}?
+    
+\begin{itemize}
+    \item \texttt{range} precisa
+conter a resposta.
+    \item Não temos um palpite para isso, mas sabemos que a
+raiz cúbica de um inteiro não negativo é sempre menor ou igual a ele.
+    \item Portanto, usar \(absx + 1\) como \emph{stop} em \texttt{range} parece
+razoável. 
+\end{itemize}
+
+Assim, ficamos com...
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{k}{for} \PY{n}{raiz} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{absx} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    Agora, o que seria uma \emph{suite} aceitável?
+    \begin{itemize}
+        \item Do jeito em que está, o
+\texttt{for} sempre percorrerá a \texttt{range} toda e assim, quase
+sempre, passará reto por cima da resposta desejada... 
+    \end{itemize}
+
+Como evitar isso?
+    \begin{itemize}
+        \item É preciso dar um jeito de interromper o \texttt{for} caso a
+resposta seja encontrada ou tenhamos certeza de que o problema não tem
+solução.
+    \end{itemize}
+
+
+Como fazer isso?
+
+    \begin{itemize}
+\tightlist
+\item
+  Vamos ter que usar um comando condicional...
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{k}{for} \PY{n}{raiz} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{absx} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{x}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} parar o `for`}
+\end{Verbatim}
+
+
+    Para interromper a execução de um \texttt{for}, antes de seu término
+normal, usamos um comando \texttt{break}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{k}{for} \PY{n}{raiz} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{absx} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{x}\PY{p}{:}
+                \PY{k}{break}
+\end{Verbatim}
+
+
+    E o problema está resolvido...
+
+    Vale lembrar que um \texttt{break} interrompe apenas a execução do
+\texttt{for} dentro do qual ele ``realmente'' está.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{começando i =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{   começando j =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{j}\PY{p}{)}
+                \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{      começando k =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{     break}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{k}{break}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{      terminando k =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{   terminando j =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{j}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{terminando i =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fim do programa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Exemplo: \emph{Calcular a raiz quadrada
+de um número real
+não-negativo}}{Exemplo: Calcular a raiz quadrada de um número real não-negativo}}\label{exemplo-calcular-a-raiz-quadrada-de-um-nuxfamero-real-nuxe3o-negativo}
+
+Neste caso, saímos do campo dos inteiros...
+
+Podemos adaptar o exemplo anterior usando um \texttt{for}? Por que?
+\begin{itemize}
+\tightlist
+\item
+  Não, porque \texttt{range} não trabalha com \emph{floats}.
+\end{itemize}
+
+Mas é possível usar o algoritmo anterior com \texttt{while}.
+
+    Podemos continuar incrementando \(raiz\) de \(1\) em \(1\)? 
+    \begin{itemize}
+% \tightlist
+\item
+Provavelmente não... vamos querer uma aproximação melhor que essa... 
+\item
+Vamos supor que \(10^{-6}\) seja um passo aceitável e vamos atribuir o
+nome \(step\) a ele.
+\end{itemize}
+
+    As células abaixo contêm nosso exemplo da raiz cúbica. Com algumas
+alterações rápidas, nosso programa começará a tomar forma.
+
+Mãos à obra...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz cúbica se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número inteiro: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{absx} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar a raiz cúbica de absx por enumeração exaustiva}
+        \PY{n}{raiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3} \PY{o}{\PYZlt{}} \PY{n}{absx}\PY{p}{:}
+            \PY{n}{raiz} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3} \PY{o}{!=} \PY{n}{absx}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{não é um cubo perfeito!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{raiz} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{raiz}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A raiz cúbica de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{raiz}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{Solução}\label{soluuxe7uxe3o2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz quadrada se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número não\PYZhy{}negativo: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{step} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar uma aproximação para a raiz quadrada de x por enumeração exaustiva}
+        \PY{n}{raiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{x}\PY{p}{:}
+            \PY{n}{raiz} \PY{o}{+}\PY{o}{=} \PY{n}{step}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{raiz}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{!=} \PY{n}{x}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{não consegui calcular uma aproximação para a raiz quadrada de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{raiz}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é aproximadamente igual à raiz quadrada de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    Vamos testá-lo calculando a raiz quadrada de 25.
+
+    \paragraph{Ops! O que será que
+aconteceu?}\label{ops-o-que-seruxe1-que-aconteceu}
+
+Adicionando um \texttt{print(raiz)} no final do cálculo da \texttt{raiz}
+vemos que o valor calculado é \texttt{5.000000000344985}, que não está
+mal como aproximação...
+
+Por que ele não deu essa resposta? 
+\begin{itemize}
+\tightlist
+\item
+Porque a condição do \texttt{if} na
+exibição do resultado é \texttt{raiz\ **\ 2\ !=\ x} e o resultado dessa
+comparação é \texttt{False}... 
+\end{itemize}
+
+Vamos examinar o que está acontecendo
+reunindo os trechos essenciais de nossa solução...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{25}
+        \PY{n}{step} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+        \PY{n}{raiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{x}\PY{p}{:}
+            \PY{n}{raiz} \PY{o}{+}\PY{o}{=} \PY{n}{step}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{raiz}\PY{p}{,} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{!=} \PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Isso acontece sempre que se usam \emph{floats} para representar
+\emph{reais} e decorre de como \emph{floats} são representados num
+computador (ou mesmo numa folha de papel).
+
+    \paragraph{\texorpdfstring{Uma ligeira digressão para falar de
+\emph{floats}.}{Uma ligeira digressão para falar de floats.}}\label{uma-ligeira-digressuxe3o-para-falar-de-floats}
+
+    Numa folha de papel ou num computador, somente conseguimos representar
+números com uma quantidade limitada de algarismos significativos. Por
+maior que seja a quantidade de algarismos usados, isso representará
+quase nada do espaço infinito dos \emph{reais}.
+
+Para conseguir expandir o intervalo que seria coberto pelos
+\emph{floats}, sacrificamos a precisão e adotamos a \emph{notação
+exponencial}. Vamos ver como.
+
+Na \emph{notação exponencial}, um número é representado como um inteiro
+com um certo número de algarismos significativos multiplicado por 10
+elevado a um certo expoente. Quando estamos fazendo cálculos à mão, o
+número de algarismos significativos usados dependerá de nossa escolha.
+Para facilitar a leitura, suponha que sejam 6. Por exemplo,...
+
+\begin{align*}
+1.25 &= 125000 \cdot 10^{-5} \\
+3.1416 &= 314160 \cdot 10^{-5} \\
+123.456 &= 123456 \cdot 10^{-3}
+\end{align*}
+
+    Com \(6\) algarismos significativos e em notação decimal, o maior número
+que se consegue representar é \(999999\). Em notação exponencial, graças
+ao fator \(10^e\), podemos ir muito além. O único limite será imposto
+pela faixa aceitável para o expoente \(e\). Por exemplo,...
+
+\begin{align*}
+999999 &= 999999 \cdot 10^{0} \\
+999999000 &= 999999 \cdot 10^{3} \\
+999999000000 &= 999999 \cdot 10^{6}
+\end{align*}
+
+    Suponha agora que \(a = 999999000000\) e \(b = 999999999999\).
+
+Como eles seriam representados?
+
+\begin{align*}
+a = 999999000000 &= 999999 \cdot 10^{6} \\
+b = 999999999999 &= 999999 \cdot 10^{6}
+\end{align*}
+
+E se agora calcularmos \(b - a\)? 
+\begin{itemize}
+\tightlist
+\item
+O resultado será
+\(000000 \cdot 10^0\), quando deveria ser \(999999 \cdot 10^0\).
+\end{itemize}
+
+    Você vê a perda de precisão?
+
+Num computador acontece exatamente a mesma coisa. Apenas, como o
+computador trabalha na base 2 e não na base 10, os valores críticos
+serão outros. Por exemplo,...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{72}
+        \PY{n}{b} \PY{o}{=} \PY{n}{a} \PY{o}{+} \PY{l+m+mi}{524288}
+        \PY{n}{fa} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+        \PY{n}{fb} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{format}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{24d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{format}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{28d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{format}\PY{p}{(}\PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{32d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{format}\PY{p}{(}\PY{n}{fa}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{28.21e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{format}\PY{p}{(}\PY{n}{fb}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{28.21e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n+nb}{format}\PY{p}{(}\PY{n}{fb} \PY{o}{\PYZhy{}} \PY{n}{fa}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{28.21e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Não são apenas grandes números que sofrem com a perda de precisão.
+
+Na notação exponencial decimal com 6 algarismos significativos
+\(\frac{1}{3}\) é representado como \(333333 \cdot 10^{-6} \nonumber\).
+
+Assim, quando somamos \(\frac{1}{3} + \frac{1}{3} + \frac{1}{3}\),
+obtemos \(999999 \cdot 10^{-6} \nonumber\) que é diferente de
+\(1\ (100000 \cdot 10^{-5})\)
+
+    Como no caso dos grandes números, esse problema também ocorre num
+computador digital, embora com outros valores por causa da mudança da
+base. Por exemplo, \(\frac{1}{10}\) não tem representação exata na base
+\(2\), assim como \(\frac{1}{3}\) não tem na base \(10\)...
+
+Assim, se somarmos \(0.1\) dez vezes, o resultado obtido não será
+rigorosamente igual a \(1.0\)...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{tot} \PY{o}{=} \PY{l+m+mf}{0.0}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tot} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{0.1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{tot}\PY{p}{,} \PY{n}{tot} \PY{o}{==} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{tot}\PY{p}{)}
+\end{Verbatim}
+
+
+    A perda de precisão em cálculos relativamente simples pode ser muito
+significativa. Suponha que queiramos calcular
+
+\begin{align*}\frac{(x + a)^2 - 2 x a - a^2}{x^2}\end{align*}
+
+O resultado esperado dessa expressão é \(1\), quaisquer que sejam \(x\)
+e \(a\), desde que \(x \ne 0\). Vejamos o que acontece quando criamos um
+\emph{script} Python para fazer esse cálculo usando vários valores de
+\(a\) e \(x\)...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{7} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+m+mi}{15} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+m+mi}{16} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f(x, a)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+m+mi}{16} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e(x, a)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{14} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+m+mi}{14} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+m+mi}{21} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+m+mi}{21} \PY{o}{*} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+            \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{10} \PY{o}{*}\PY{o}{*} \PY{n}{p}
+            \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10} \PY{o}{*}\PY{o}{*} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{f} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{a}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x} \PY{o}{*} \PY{n}{a} \PY{o}{\PYZhy{}} \PY{n}{a} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{e} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{a} \PY{o}{+} \PY{n}{x}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{a} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{a} \PY{o}{*} \PY{n}{x}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}x:14.8e\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}a:14.8e\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}f:21.14e\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}e:21.14e\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Todos os valores nas colunas \texttt{f(x,\ a)} e \texttt{e(x,\ a)}
+deveriam ser "iguais" a \(1.0\), mas vários estão longe disso.
+
+Esse não é um privilégio de Python, mas sim uma consequência da forma
+como \emph{floats} estão implementados nos processadores usados nos
+nossos computadores. Toda vez que você operar com números muito díspares
+(neste caso \(a^2\) é muito maior que \(x^2\)) haverá o risco de perda
+grave de precisão. Se você fizer o mesmo cálculo em outras plataformas
+(inclusive Excel) vai encontrar o mesmo resultado.
+
+    \subsubsection{De volta ao nosso
+exemplo...}\label{de-volta-ao-nosso-exemplo...}
+
+    A discussão sobre \emph{floats} deixou claro o perigo de fazermos testes
+de igualdade com eles. A saída é usar \emph{testes de proximidade}. Um
+\emph{teste de proximidade} compara dois valores e vê se a distância
+entre eles está dentro de uma certa tolerância \(\varepsilon\)
+(\emph{epsilon}) pré-definida.
+
+Vamos fazer isso no nosso algoritmo...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar uma aproximação para a raiz quadrada de x por enumeração exaustiva}
+        \PY{n}{raiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{:}
+            \PY{n}{raiz} \PY{o}{+}\PY{o}{=} \PY{n}{step}
+\end{Verbatim}
+
+
+    Vamos reunir os pedaços e testar o resultado... mas antes disso
+precisamos escolher um valor razoável para \emph{epsilon}. O que você
+acha?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz quadrada se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número não\PYZhy{}negativo: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{step} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+        \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar uma aproximação para a raiz quadrada de x por enumeração exaustiva}
+        \PY{n}{raiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{:}
+            \PY{n}{raiz} \PY{o}{+}\PY{o}{=} \PY{n}{step}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{raiz}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é aproximadamente igual à raiz quadrada de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    O que acontece com nosso programa se o número dado for muito grande? Por
+exemplo, 1524157875019052100?
+
+\paragraph{Cansamos de esperar?} Esse inteiro é o quadrado de 1234567890. Como
+partimos de zero e estamos usando um \emph{step} de \(10^{-6}\), serão
+necessários mais de \(10^{15}\) ciclos do \texttt{while} para chegar à
+resposta. Isso é muita coisa, mesmo para um computador muito rápido.
+
+Por outro lado, se usarmos um \emph{step} maior, nosso programa poderá
+deixar de funcionar para números pequenos. O que fazer?
+
+    Uma saída seria usar um \emph{step} variável, que pudesse ir sendo
+refinado à medida que nos aproximássemos da solução.
+
+    \subsection{O método da bisseção}\label{o-muxe9todo-da-bisseuxe7uxe3o}
+
+O \emph{método da bisseção} é um método de aproximação com \emph{step}
+variável, muito rápido e muito usado na solução de diversos problemas
+reais.
+
+Suponha que sejamos capazes de definir um intervalo \([esq..dir]\) no
+qual, com certeza, a resposta está contida. Vamos escolher como
+candidato o valor médio desse intervalo e associá-lo à variável
+\(raiz\).
+
+Agora, duas coisas podem acontecer:
+\begin{itemize}
+% \tightlist
+\item
+\(\lvert\, raiz^2 - x \,\rvert \le \varepsilon \rightarrow\) nosso
+problema está resolvido, ou, 
+\item
+\(\lvert\, raiz^2 - x \,\rvert \gt \varepsilon \rightarrow\) é preciso
+encontrar um novo candidato. Nesse caso... 
+    \begin{itemize}
+        % \tightlist
+        \item
+Se \(raiz^2 < x\), o
+candidato era pequeno demais. Portanto, a resposta deverá estar no
+intervalo \([raiz..dir]\) e um novo candidato deverá ser procurado
+dentro dele. 
+        \item
+Se \(raiz^2 > x\), o candidato era grande demais.
+Portanto, a resposta deverá estar no intervalo \([esq..raiz]\) e um novo
+candidato deverá ser procurado dentro dele.
+    \end{itemize}
+\end{itemize}
+
+Note que, a cada passo, a largura do intervalo onde a resposta
+certamente se encontra é reduzida pela metade, o que explica o nome do
+método e a velocidade com que o algoritmo se aproxima da solução.
+
+    Vamos adaptar nosso algoritmo que emprega o método de enumeração
+exaustiva para que ele adote o método da bisseção.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz quadrada se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número não\PYZhy{}negativo: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}8}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar uma aproximação para a raiz quadrada de x por bisseção}
+        
+        \PY{c+c1}{\PYZsh{} Definição do intervalo de busca inicial e do primeiro candidato}
+        \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n}{lim\PYZus{}esq}\PY{p}{,} \PY{n}{lim\PYZus{}dir} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{x}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{lim\PYZus{}esq}\PY{p}{,} \PY{n}{lim\PYZus{}dir} \PY{o}{=} \PY{n}{x}\PY{p}{,} \PY{l+m+mf}{1.0}
+        
+        \PY{n}{raiz} \PY{o}{=} \PY{p}{(}\PY{n}{lim\PYZus{}esq} \PY{o}{+} \PY{n}{lim\PYZus{}dir}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+        
+        \PY{c+c1}{\PYZsh{} refinamento progressivo da aproximação}
+        \PY{k}{while} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{:}
+            \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZlt{}} \PY{n}{x}\PY{p}{:}
+                \PY{n}{lim\PYZus{}esq} \PY{o}{=} \PY{n}{raiz}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{lim\PYZus{}dir} \PY{o}{=} \PY{n}{raiz}
+            \PY{n}{raiz} \PY{o}{=} \PY{p}{(}\PY{n}{lim\PYZus{}esq} \PY{o}{+} \PY{n}{lim\PYZus{}dir}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{raiz}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é a raiz quadrada de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a menos de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{epsilon}\PY{p}{)}
+\end{Verbatim}
+
+
+    Vamos testar nosso programa com os valores usados anteriormente. Será
+que ele consegue calcular um aproximação da raiz quadrada de
+1524157875019052100?
+
+    Lembra-se de que nesse caso o método de busca exaustiva necessitaria de
+mais do que \(10^{15}\) ciclos do \texttt{while} para chegar à resposta?
+De quantos ciclos será que o método da bisseção necessitou?
+
+Vamos incluir um contador, só por curiosidade...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar uma aproximação para a raiz quadrada de x por bisseção}
+        \PY{c+c1}{\PYZsh{} Definição do intervalo de busca inicial}
+        \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n}{lim\PYZus{}esq}\PY{p}{,} \PY{n}{lim\PYZus{}dir} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{x}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{lim\PYZus{}esq}\PY{p}{,} \PY{n}{lim\PYZus{}dir} \PY{o}{=} \PY{n}{x}\PY{p}{,} \PY{l+m+mf}{1.0}
+        \PY{c+c1}{\PYZsh{} O candidato é o ponto médio do intervalo}
+        \PY{n}{raiz} \PY{o}{=} \PY{p}{(}\PY{n}{lim\PYZus{}esq} \PY{o}{+} \PY{n}{lim\PYZus{}dir}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+        
+        \PY{n}{ciclos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{:}
+            \PY{k}{if} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZlt{}} \PY{n}{x}\PY{p}{:}
+                \PY{n}{lim\PYZus{}esq} \PY{o}{=} \PY{n}{raiz}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{lim\PYZus{}dir} \PY{o}{=} \PY{n}{raiz}
+            \PY{n}{raiz} \PY{o}{=} \PY{p}{(}\PY{n}{lim\PYZus{}esq} \PY{o}{+} \PY{n}{lim\PYZus{}dir}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+            \PY{n}{ciclos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{número de ciclos necessários =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ciclos}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{O método de Newton (ou
+Newton-Raphson)}\label{o-muxe9todo-de-newton-ou-newton-raphson}
+
+Newton criou um método que é usualmente adotado para encontrar as raízes
+reais de muitas funções e que se aplica também ao nosso exemplo. Raphson
+propôs uma ideia semelhante mais ou menos ao mesmo tempo e, por isso, o
+método é citado com os dois nomes.
+
+No nosso caso, dado um número real não-negativo \(x\), queremos
+encontrar \(r\) tal que \(r^2 = x\). Passando \(x\) para o lado
+esquerdo, vemos que esse problema é o mesmo que encontrar a raiz do
+polinômio \(p(r) = r^2 - x\), isto é, um valor \(raiz\) tal que
+\(p(raiz) = 0\).
+
+Newton demonstrou que se \(raiz\) é uma aproximação da resposta
+desejada, \(raiz - \dfrac{p(raiz)}{\dot p(raiz)}\) é uma aproximação
+melhor ainda.
+
+Vamos fazer alguns pequenos ajustes no nosso algoritmo para que ele
+implemente esse modelo.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Ler o número cuja raiz quadrada se deseja encontrar}
+        \PY{n}{x} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite um número não\PYZhy{}negativo: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}8}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encontrar uma aproximação para a raiz quadrada de x por Newton\PYZhy{}Raphson}
+        \PY{c+c1}{\PYZsh{} Definição do candidato inicial}
+        \PY{n}{raiz} \PY{o}{=} \PY{n}{x} \PY{o}{/} \PY{l+m+mf}{2.0}
+        
+        \PY{n}{ciclos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{epsilon}\PY{p}{:}
+            \PY{n}{p} \PY{o}{=} \PY{n}{raiz} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}  \PY{c+c1}{\PYZsh{} este é o polinômio calculado em \PYZdq{}raiz\PYZdq{}}
+            \PY{n}{dp} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{raiz}      \PY{c+c1}{\PYZsh{} esta é a derivada calculada em \PYZdq{}raiz\PYZdq{}}
+            \PY{n}{raiz} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{p} \PY{o}{/} \PY{n}{dp}
+            \PY{n}{ciclos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{número de ciclos necessários =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ciclos}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Exibir o resultado}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{raiz}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é a raiz quadrada de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a menos de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{epsilon}\PY{p}{)}
+\end{Verbatim}
+
+
+    \emph{Newton-Raphson} precisou de menos do que a metade dos ciclos
+necessários para o método da \emph{bisseção}, que já era muito mais
+rápido e geral do que a \emph{enumeração exaustiva}.
+
+    \subsubsection{\texorpdfstring{Exercício: \emph{Encontrar uma potência
+que seja igual a um inteiro
+dado.}}{Exercício: Encontrar uma potência que seja igual a um inteiro dado.}}\label{exercuxedcio-encontrar-uma-potuxeancia-que-seja-igual-a-um-inteiro-dado.}
+
+Ler um inteiro \(n\) e encontrar dois inteiros \(b\) e
+\(e, (0 < e < 6)\), tais que \(b^e = n\).
+
+    \subsubsection{\texorpdfstring{Exercício: \emph{Gerar todos os números
+primos menores que um valor
+dado}}{Exercício: Gerar todos os números primos menores que um valor dado}}\label{exercuxedcio-gerar-todos-os-nuxfameros-primos-menores-que-um-valor-dado}
+
+Ler um inteiro \(n\) e criar uma lista com todos os números primos
+menores do que \(n\).
+
+    \subsubsection{\texorpdfstring{Exercício: \emph{Ler uma sequência de
+números e verificar se eles estão em ordem
+crescente}}{Exercício: Ler uma sequência de números e verificar se eles estão em ordem crescente}}\label{exercuxedcio-ler-uma-sequuxeancia-de-nuxfameros-e-verificar-se-eles-estuxe3o-em-ordem-crescente}
+
+Ler uma sequência de números e \textbf{\emph{depois}} verificar se eles
+estão em ordem crescente.
+
+    \subsubsection{\texorpdfstring{Exercício: \emph{Dada uma sequência de
+números quaisquer, encontrar o par mais
+próximo}}{Exercício: Dada uma sequência de números quaisquer, encontrar o par mais próximo}}\label{exercuxedcio-dada-uma-sequuxeancia-de-nuxfameros-quaisquer-encontrar-o-par-mais-pruxf3ximo}
+
+Ler uma sequência de números \(S\) e \textbf{\emph{depois}} encontrar
+\(a \in S\) e \(b \in S\), \(a \ne b\), tais que a distância entre eles,
+isto é, \(\lvert a - b \rvert\), seja mínima.
+
+    \subsubsection{\texorpdfstring{Exercício: \emph{Imprimir um triângulo
+numérico}}{Exercício: Imprimir um triângulo numérico}}\label{exercuxedcio-imprimir-um-triuxe2ngulo-numuxe9rico}
+
+Dado um inteiro positivo \(n\), imprimir um triângulo com \(n\) linhas e
+o seguinte formato:
+\texttt{1\ \ 1\ \ 2\ \ 1\ \ 2\ \ 3\ \ 1\ \ 2\ \ 3\ \ 4\ \ ...}
+
+    \subsubsection{\texorpdfstring{Exercício: \emph{Imprimir um tapete
+quadrado}}{Exercício: Imprimir um tapete quadrado}}\label{exercuxedcio-imprimir-um-tapete-quadrado}
+
+Dado um inteiro positivo \(n\), imprimir um quadrado com \(n\) linhas e
+colunas e o seguinte formato (supondo \(n = 5\)):
+
+\begin{verbatim}
++ * * * *
+* + * * *
+* * + * *
+* * * + *
+* * * * +
+\end{verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
+

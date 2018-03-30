@@ -1,0 +1,733 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt,a4paper]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Iteração \\
+           \small{MC102-2018s1-Aula06-180315-takeaway}
+           }
+    \author{Arthur J. Catto, PhD \\
+            \small{arthur.catto@g.unicamp.br}
+            }
+    \date{15 de março de 2018}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Iteração}\label{iterauxe7uxe3o}
+
+    Os recursos de programação que vimos até agora não nos habilitam a
+resolver qualquer classe de problemas.
+
+Imagine, por exemplo, um programa que deva ler um inteiro positivo e
+depois imprimir essa quantidade de Xs.
+
+    Para resolver esse problema, poderíamos pensar em algo como...
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numXs }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(}\BuiltInTok{input}\NormalTok{(}\StringTok{"Quantos Xs? "}\NormalTok{))}
+\ControlFlowTok{if}\NormalTok{ numXs }\OperatorTok{==} \DecValTok{1}\NormalTok{:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"X"}\NormalTok{)}
+\ControlFlowTok{elif}\NormalTok{ numXs }\OperatorTok{==} \DecValTok{2}\NormalTok{:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"XX"}\NormalTok{)}
+\ControlFlowTok{elif}\NormalTok{ numXs }\OperatorTok{==} \DecValTok{3}\NormalTok{:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"XXX"}\NormalTok{)}
+\NormalTok{...}
+\end{Highlighting}
+\end{Shaded}
+
+    Isso funciona?
+
+    Quantos testes serão necessários?\\
+O que fazer para adivinhar a resposta do usuário?
+
+    E se nossa solução fosse esta?
+
+    \begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numXs }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(}\BuiltInTok{input}\NormalTok{(}\StringTok{"Quantos Xs? "}\NormalTok{))}
+\NormalTok{ainda_faltam }\OperatorTok{=}\NormalTok{ numXs}
+\ControlFlowTok{if}\NormalTok{ ainda_faltam }\OperatorTok{>} \DecValTok{0}\NormalTok{:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"X"}\NormalTok{, end}\OperatorTok{=}\StringTok{''}\NormalTok{)}
+\NormalTok{   ainda_faltam }\OperatorTok{-=} \DecValTok{1}
+\ControlFlowTok{if}\NormalTok{ ainda_faltam }\OperatorTok{>} \DecValTok{0}\NormalTok{:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"X"}\NormalTok{, end}\OperatorTok{=}\StringTok{''}\NormalTok{)}
+\NormalTok{   ainda_faltam }\OperatorTok{-=} \DecValTok{1}
+\ControlFlowTok{if}\NormalTok{ ...}
+\end{Highlighting}
+\end{Shaded}
+
+    E se fosse esta outra?
+
+    \begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numXs }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(}\BuiltInTok{input}\NormalTok{(}\StringTok{"Quantos Xs? "}\NormalTok{))}
+\NormalTok{ja_fiz }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{if}\NormalTok{ ja_fiz }\OperatorTok{<}\NormalTok{ numXs:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"X"}\NormalTok{)}
+\NormalTok{   ja_fiz }\OperatorTok{+=} \DecValTok{1}
+\ControlFlowTok{elif}\NormalTok{ ja_fiz }\OperatorTok{<}\NormalTok{ numXs:}
+   \BuiltInTok{print}\NormalTok{(}\StringTok{"X"}\NormalTok{)}
+\NormalTok{   ja_fiz }\OperatorTok{+=} \DecValTok{1}
+\ControlFlowTok{elif}\NormalTok{ ...}
+\end{Highlighting}
+\end{Shaded}
+
+    A diferença, nesses dois últimos casos, é que um mesmo conjunto de
+comandos foi usado repetidas vezes.
+
+Nesses dois casos, \texttt{ainda\_faltam} e \texttt{ja\_fiz} são
+chamadas \emph{variáveis contadoras} --- variáveis auxiliares cujos
+valores vão sendo incrementados ou decrementados passo a passo até que
+satisfaçam uma dada condição.
+
+Uma vez satisfeita essa condição, nenhum outro \texttt{if} consegue ser
+executado.
+
+    O problema, no entanto, permanece.
+
+Quantos \texttt{if}s são necessários?
+
+    A execução repetida de um conjunto de comandos é chamada \emph{iteração}
+e é implementada por comandos específicos em todas as linguagens de alto
+nível.
+
+Python, em particular, oferece duas estruturas, que serão examinadas em
+seguida.
+
+    \subsection{\texorpdfstring{O comando
+\texttt{while}}{O comando while}}\label{o-comando-while}
+
+    Um comando \texttt{while} executa repetidamente uma \emph{suite} de
+comandos \textbf{enquanto} uma dada \emph{condição} for verdadeira e tem
+a seguinte estrutura básica...
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{while}\NormalTok{ condição:}
+\NormalTok{    suite}
+\end{Highlighting}
+\end{Shaded}
+
+Um comando \texttt{while} começa avaliando a \emph{condição}.
+
+\begin{itemize}
+\tightlist
+\item
+  Se a \emph{condição} for considerada \texttt{False}, o \texttt{while}
+  termina sem qualquer efeito e o controle passa para o próximo comando
+  na sequência.
+\item
+  Se a \emph{condição} for considerada \texttt{True}, a \emph{suite} é
+  executada, após o que a \emph{condição} é reavaliada e o processo se
+  repete.
+\end{itemize}
+
+    Examinando a estrutura típica de um \texttt{while}...
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{while}\NormalTok{ condição:}
+\NormalTok{    suite}
+\end{Highlighting}
+\end{Shaded}
+
+podemos tirar duas conclusões importantes:
+
+    \begin{itemize}
+\tightlist
+\item
+  O código que antecede o \texttt{while} deve inicializar as variáveis
+  que aparecem na \emph{condição} para permitir sua avaliação inicial.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Para evitar que o \texttt{while} execute eternamente, a \emph{suite}
+  deve atualizar os valores associados a algumas variáveis da
+  \emph{condição} de modo que, após um número finito de iterações, esta
+  seja avaliada como \texttt{False}.
+\end{itemize}
+
+    \subsubsection{Exemplo: Exibir um número arbitrário de
+Xs}\label{exemplo-exibir-um-nuxfamero-arbitruxe1rio-de-xs}
+
+Uma vez entendido o funcionamento do \texttt{while}, será possível
+resolver o exemplo anterior?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{numXs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantos Xs? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ainda\PYZus{}faltam} \PY{o}{=} \PY{n}{numXs}
+        \PY{k}{while} \PY{n}{ainda\PYZus{}faltam} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+           \PY{n}{ainda\PYZus{}faltam} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    Note que...
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ainda\_faltam} é inicializado na linha 2, antes de ser usado
+  na \emph{condição} da linha 3.
+\item
+  \texttt{ainda\_faltam} é decrementado na linha 5, o que faz com que o
+  resultado da avaliação da \emph{condição} da linha 3 se torne
+  \texttt{False} após um número finito de iterações.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{numXs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantos Xs? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ja\PYZus{}fiz} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{p}{:}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+           
+\end{Verbatim}
+
+
+    Note que...
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ja\_fiz} é inicializado na linha 2, antes de ser usado na
+  \emph{condição} da linha 3.
+\item
+  \texttt{ja\_fiz} é incrementado na linha 5, o que faz com que o
+  resultado da avaliação da \emph{condição} da linha 3 se torne
+  \texttt{False} após um número finito de iterações.
+\end{itemize}
+
+    \subsubsection{\texorpdfstring{Exemplo: \emph{Encontrar o mínimo
+múltiplo comum de dois inteiros positivos
+dados}}{Exemplo: Encontrar o mínimo múltiplo comum de dois inteiros positivos dados}}\label{exemplo-encontrar-o-muxednimo-muxfaltiplo-comum-de-dois-inteiros-positivos-dados}
+
+\textbf{Problema.} Ler dois inteiros positivos e exibir o menor inteiro
+que pode ser dividido por ambos, sem deixar resto.
+
+    \textbf{Solução.} Este problema pode ser resolvido por força bruta, se
+testarmos possíveis candidatos em ordem crescente.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{a} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Primeiro número? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segundo número? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mmc} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{k}{while} \PY{p}{(}\PY{n}{mmc} \PY{o}{\PYZpc{}} \PY{n}{a} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{n}{mmc} \PY{o}{\PYZpc{}} \PY{n}{b} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{mmc} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O mínimo múltiplo comum de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mmc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Primeiro número? 4
+Segundo número? 5
+O mínimo múltiplo comum de 4 e 5 é 20
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{p}{(}\PY{n}{mmc} \PY{n}{é} \PY{n}{divisível} \PY{n}{por} \PY{n}{a}\PY{p}{)} \PY{n}{e} \PY{p}{(}\PY{n}{mmc} \PY{n}{é} \PY{n}{divisível} \PY{n}{por} \PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Primeiro número? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segundo número? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{mmc} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{while} \PY{p}{(}\PY{n}{mmc} \PY{o}{\PYZpc{}} \PY{n}{a} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{n}{mmc} \PY{o}{\PYZpc{}} \PY{n}{b} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{n}{mmc} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O mínimo múltiplo comum de}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mmc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Exemplo: \emph{Achar o maior número ímpar
+entre 5 candidatos inteiros
+não-negativos}}{Exemplo: Achar o maior número ímpar entre 5 candidatos inteiros não-negativos}}\label{exemplo-achar-o-maior-nuxfamero-uxedmpar-entre-5-candidatos-inteiros-nuxe3o-negativos}
+
+\textbf{Problema.} Ler 5 inteiros não-negativos e mostrar o maior número
+ímpar dentre eles ou uma mensagem apropriada caso todos sejam pares.
+
+    \textbf{Raciocínio}
+
+\begin{itemize}
+\tightlist
+\item
+  Como ainda não sabemos como armazenar uma coleção de objetos, vamos
+  ter que tomar decisões à medida em que formos lendo os candidatos.
+\end{itemize}
+
+    \textbf{Raciocínio}
+
+\begin{itemize}
+\tightlist
+\item
+  Pense numa variável como sendo um \emph{post-it} que pode ser aplicado
+  a um objeto qualquer.
+\item
+  Suponha que o \emph{post-it} esteja grudado no maior ímpar já lido. Ao
+  lermos um novo ímpar \textbf{maior do que aquele que está com o
+  \emph{post-it}}, transferimos o \emph{post-it} para ele.
+\end{itemize}
+
+    \textbf{Raciocínio} - Repetimos esse raciocínio 5 vezes e, ao final,
+quem estiver com o \emph{post-it} será a resposta desejada.
+
+    \textbf{Pergunta}: Quem vai estar com o \emph{post-it} no início do
+programa?
+
+    \begin{itemize}
+\tightlist
+\item
+  Como ainda não lemos número algum, uma saída é colar o \emph{post-it}
+  num \textbf{\emph{"candidato imaginário e impossível"}} que seja
+  superado pelo primeiro número ímpar que aparecer, qualquer que seja
+  ele.
+\end{itemize}
+
+    Como encontrar um \textbf{\emph{"candidato imaginário e impossível"}}?
+
+    \begin{itemize}
+\tightlist
+\item
+  Como o enunciado nos diz que todos os candidatos serão não-negativos,
+  qualquer inteiro negativo (p.ex. \texttt{-1}) pode servir como
+  \emph{"candidato impossível"}.
+\item
+  Além disso, se ao final o \emph{post-it} ainda estiver com ele,
+  saberemos com certeza que todos os números lidos foram pares.
+\end{itemize}
+
+    Com isso já podemos esboçar uma solução para o nosso problema.
+
+Vamos usar o modelo de \emph{engenharia reversa} e supor que o resultado
+desejado seja associado a uma variável \texttt{maior\_impar},
+inicializada com o valor do \emph{candidato imaginário e impossível}
+\texttt{-1}.
+
+Qual seria um possível \emph{último comando}?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        
+        
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{:}
+            \PY{n}{cand} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Próximo número? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{p}{(}\PY{n}{cand} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{cand} \PY{o}{\PYZgt{}} \PY{n}{maior\PYZus{}impar}\PY{p}{)}\PY{p}{:}
+                \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{n}{cand}
+            \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Podemos agora criar o loop usando uma variável contadora...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{p}{:}
+        
+            
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{:}
+        
+            
+            \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Agora podemos ler um candidato...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{:}
+        
+            
+            \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{:}
+            \PY{n}{cand} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Candidato }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{num\PYZus{}cands\PYZus{}lidos}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    E, finalmente, testar se o \emph{post-it} deve ser passado para ele...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{:}
+            \PY{n}{cand} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Candidato }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{num\PYZus{}cands\PYZus{}lidos}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{:}
+            \PY{n}{cand} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Candidato }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{num\PYZus{}cands\PYZus{}lidos}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{n}{cand} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{n}{cand} \PY{o}{\PYZgt{}} \PY{n}{maior\PYZus{}impar}\PY{p}{:}
+                \PY{n}{maior\PYZus{}impar} \PY{o}{=} \PY{n}{cand}
+            \PY{n}{num\PYZus{}cands\PYZus{}lidos} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{if} \PY{n}{maior\PYZus{}impar} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maior ímpar =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{maior\PYZus{}impar}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nenhum candidato ímpar.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    E assim temos uma solução para o nosso problema...
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{maior_impar }\OperatorTok{=} \OperatorTok{-}\DecValTok{1}
+\NormalTok{num_cands_lidos }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{while}\NormalTok{ num_cands_lidos }\OperatorTok{<} \DecValTok{5}\NormalTok{:}
+\NormalTok{    cand }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(}\BuiltInTok{input}\NormalTok{(}\StringTok{"Candidato "} \OperatorTok{+}\NormalTok{ num_cands_lidos }\OperatorTok{+} \StringTok{"? "}\NormalTok{))}
+    \ControlFlowTok{if}\NormalTok{ cand }\OperatorTok{%} \DecValTok{2} \OperatorTok{==} \DecValTok{1} \KeywordTok{and}\NormalTok{ cand }\OperatorTok{>}\NormalTok{ maior_impar:}
+\NormalTok{        maior_impar }\OperatorTok{=}\NormalTok{ cand}
+\NormalTok{    num_cands_lidos }\OperatorTok{+=} \DecValTok{1}
+\ControlFlowTok{if}\NormalTok{ maior_impar }\OperatorTok{!=} \OperatorTok{-}\DecValTok{1}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"maior ímpar ="}\NormalTok{, maior_impar)}
+\ControlFlowTok{else}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Nenhum candidato ímpar."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+    Embora correta, essa solução desperta pelo menos duas preocupações:
+
+\begin{itemize}
+\tightlist
+\item
+  Nem sempre será possível tomar decisões sem poder examinar
+  simultaneamente todos os candidatos.
+\item
+  Para controlar o loop, tivemos que criar e gerenciar uma variável
+  \texttt{num\_cands\_lidos} que não nos interessava diretamente.
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
+
