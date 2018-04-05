@@ -1,0 +1,1682 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt,a4paper]{article}
+
+
+    
+    \usepackage[brazil]{babel}
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+        \title{Revisitando Listas \\ 
+           \small{MC102-2018s1-Aula11-180410}
+           }
+    	\author{Arthur J. Catto, PhD \\
+            \small{ajcatto@g.unicamp.br}
+            }
+    	\date{10 de abril de 2018}
+
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+%    \begin{Verbatim}[commandchars=\\\{\}]
+%{\color{incolor}In [{\color{incolor}43}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+%         \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
+%\end{Verbatim}
+
+
+    \section{Revisitando Listas}\label{revisitando-listas}
+
+    Listas, dicionários, tuplas e conjuntos são as quatro estruturas de
+dados básicas implementadas por Python.
+
+Uma rápida introdução a listas foi vista na \emph{Aula 07}. Aqui vamos
+estender um pouco mais esse conhecimento.
+
+Uma \textbf{\emph{lista}} é uma \textbf{\emph{sequência de objetos}},
+\textbf{\emph{ordenada}}, \textbf{\emph{mutável}},
+\textbf{\emph{iterável}} e \textbf{\emph{não necessariamente
+homogênea}}.
+
+Cada elemento de uma lista é identificado por um \emph{índice} que
+indica sua posição na sequência.
+
+    \subsection{Operações com listas}\label{operauxe7uxf5es-com-listas}
+
+    \subsubsection{Criar uma lista}\label{criar-uma-lista}
+
+Uma lista vazia pode ser criada por uma atribuição simples:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} ('nums', 4493296328, [])
+\end{Verbatim}
+            
+    Todo objeto em Python tem uma identificação única. A chamada de função
+\texttt{id(nums)} que aparece no \texttt{print} acima exibe o
+\texttt{identificador} do objeto que está associado a \texttt{nums} no
+momento da chamada. Nós vamos usar essa informação várias vezes durante
+esta aula.
+
+    O operador \textbf{\texttt{+}} concatena duas listas enquanto o operador
+\textbf{\texttt{*}} replica uma lista um certo número de vezes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{+} \PY{n}{n} \PY{o}{*} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} ('nums', 4495044104, [0, 1, 1, 1, 2])
+\end{Verbatim}
+            
+    A função \texttt{len} retorna o número de elementos numa lista.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 5
+\end{Verbatim}
+            
+    \subsubsection{Alterar um ou mais elementos de uma
+lista}\label{alterar-um-ou-mais-elementos-de-uma-lista}
+
+É possível alterar os valores associados a quaisquer elementos de uma
+lista. Por exemplo, ...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} ('nums', 4495554312, [1, 3, 4, 7, 9])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} ('nums', 4495554312, [1, 3, 5, 7, 9])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nums}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*}\PY{o}{=} \PY{l+m+mi}{2}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} ('nums', 4495554312, [2, 6, 10, 14, 18])
+\end{Verbatim}
+            
+    \subsubsection{Inserir um item no fim de uma
+lista}\label{inserir-um-item-no-fim-de-uma-lista}
+
+    Vamos criar uma lista de números...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} ('nums', 4495554888, [1, 3, 4, 7])
+\end{Verbatim}
+            
+    Há mais de uma maneira de inserir um item no fim dessa lista...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{nums} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} ('nums', 4495554888, [1, 3, 4, 7, 9])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} ('nums', 4495554888, [1, 3, 4, 7, 9, 4])
+\end{Verbatim}
+            
+    Note que o identificador associado à lista \texttt{nums} não se altera
+quando acrescentamos novos itens à lista.
+
+    \subsubsection{Inserir um item numa posição
+qualquer}\label{inserir-um-item-numa-posiuxe7uxe3o-qualquer}
+
+    Também é possível inserir um novo item numa posição qualquer, inclusive
+no início e no fim de uma lista.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495689928 [1, 3, 4, 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495689928 [1, 3, 99, 4, 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495689928 [99, 1, 3, 99, 4, 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495689928 [99, 1, 3, 99, 4, 7, 99]
+
+    \end{Verbatim}
+
+    \subsubsection{Estender uma lista acrescentando ao final todos os itens
+de uma outra
+lista}\label{estender-uma-lista-acrescentando-ao-final-todos-os-itens-de-uma-outra-lista}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{nums1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n}{nums2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums1}\PY{p}{)}\PY{p}{,} \PY{n}{nums1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums1 4495555400 [1, 3, 7]
+nums2 4495553160 [7, 8]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{nums1}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums1}\PY{p}{)}\PY{p}{,} \PY{n}{nums1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums1 4495555400 [1, 3, 7, 7, 8]
+nums2 4495553160 [7, 8]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{nums1} \PY{o}{+}\PY{o}{=} \PY{n}{nums2}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums1}\PY{p}{)}\PY{p}{,} \PY{n}{nums1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums1 4495555400 [1, 3, 7, 7, 8, 7, 8]
+nums2 4495553160 [7, 8]
+
+    \end{Verbatim}
+
+    Nestes casos, note que os identificadores das duas listas continuam os
+mesmos e que a lista \texttt{num2} não se altera.
+
+    O argumento de \texttt{extend} também pode ser uma constante...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{nums1}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums1}\PY{p}{)}\PY{p}{,} \PY{n}{nums1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums1 4495555400 [1, 3, 7, 7, 8, 7, 8, 0, 1]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{nums2}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{99}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums2 4495553160 [7, 8, 99]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{nums2}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums2 4495553160 [7, 8, 99, 1, 2]
+
+    \end{Verbatim}
+
+    \subsubsection{Remover de uma lista o primeiro item com um dado
+valor}\label{remover-de-uma-lista-o-primeiro-item-com-um-dado-valor}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n}{nums}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495682312 [1, 4, 3, 7]
+
+    \end{Verbatim}
+
+    \subsubsection{Remover e retornar o item numa dada
+posição}\label{remover-e-retornar-o-item-numa-dada-posiuxe7uxe3o}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{x} \PY{o}{=} \PY{n}{nums}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x 3
+nums 4495682312 [1, 4, 7]
+
+    \end{Verbatim}
+
+    Se o argumento for omitido, \texttt{pop} remove e retorna o último item
+da lista.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{x} \PY{o}{=} \PY{n}{nums}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x 7
+nums 4495682312 [1, 4]
+
+    \end{Verbatim}
+
+    \subsubsection{Remover todos os itens de uma
+lista}\label{remover-todos-os-itens-de-uma-lista}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495688904 [1, 3, 4, 3, 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{clear}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495688904 []
+
+    \end{Verbatim}
+
+    \subsubsection{Obter o índice do primeiro item com um dado
+valor}\label{obter-o-uxedndice-do-primeiro-item-com-um-dado-valor}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n}{ix} \PY{o}{=} \PY{n}{nums}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index(3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ix}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+index(3) 1
+nums 4495731976 [1, 3, 4, 3, 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{ix} \PY{o}{=} \PY{n}{nums}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+m+mi}{99}\PY{p}{)}  \PY{c+c1}{\PYZsh{} vai dar erro...}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index(99)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ix}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-69-c39c2dc448d7> in <module>()
+    ----> 1 ix = nums.index(99)  \# vai dar erro{\ldots}
+          2 print('index(99)', ix)
+          3 print('nums', id(nums), nums)
+
+
+        ValueError: 99 is not in list
+
+    \end{Verbatim}
+
+    \subsubsection{Retornar o número de vezes que um dado valor aparece numa
+lista}\label{retornar-o-nuxfamero-de-vezes-que-um-dado-valor-aparece-numa-lista}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+         
+         \PY{n}{c3} \PY{o}{=} \PY{n}{nums}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count(3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c3}\PY{p}{)}
+         
+         \PY{n}{c9} \PY{o}{=} \PY{n}{nums}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count(9)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c9}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495688392 [1, 3, 4, 3, 7]
+count(3) 2
+count(9) 0
+
+    \end{Verbatim}
+
+    \subsubsection{Fazer uma busca linear numa
+lista}\label{fazer-uma-busca-linear-numa-lista}
+
+O motivo de uma busca geralmente é encontrar um item da lista que
+satisfaça uma determinada condição. A busca linear começa em uma das
+extremidades da lista e caminha na direção da outra extremidade até
+encontrar o item desejado ou esgotar a lista. À medida que a busca
+avança, é comum também realizar-se alguma operação sobre os elementos
+examinados que não satisfazem a condição procurada.
+
+Vamos estudar duas maneiras de fazer essa operação: uma usando os
+comandos \texttt{for} / \texttt{break} e outra usando \texttt{while}.
+
+    \paragraph{\texorpdfstring{Busca linear com \texttt{for} /
+\texttt{break}}{Busca linear com for / break}}\label{busca-linear-com-for-break} 
+
+Neste caso, o comando \texttt{for} se encarrega de fornecer os itens da
+lista, um a um, enquanto o \texttt{break} se encarrega de interromper a
+iteração ao se achar o item desejado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{item_ainda_não_encontrado }\OperatorTok{=} \VariableTok{True}
+\ControlFlowTok{for}\NormalTok{ item }\KeywordTok{in}\NormalTok{ lista:}
+    \ControlFlowTok{if}\NormalTok{ item satisfaz a condição:}
+\NormalTok{        item_ainda_não_encontrado }\OperatorTok{=} \VariableTok{False}
+        \ControlFlowTok{break}
+    \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{        fazer alguma operação sobre o item}
+\end{Highlighting}
+\end{Shaded}
+
+    \paragraph{\texorpdfstring{Busca linear com
+\texttt{while}}{Busca linear com while}}\label{busca-linear-com-while}
+
+Neste caso, o comando \texttt{while} deve se encarregar das duas
+tarefas: fornecer os itens da lista, um a um, enquanto o item não é
+encontrado e interromper a iteração quando isso acontecer.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{item_ainda_não_encontrado }\OperatorTok{=} \VariableTok{True}
+\ControlFlowTok{while}\NormalTok{ item_ainda_não_encontrado }\KeywordTok{and}\NormalTok{ lista não esgotada:}
+\NormalTok{    obter o próximo item da lista}
+    \ControlFlowTok{if}\NormalTok{ item satisfaz a condição:}
+\NormalTok{        item_ainda_não_encontrado }\OperatorTok{=} \VariableTok{False}
+    \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{        fazer alguma operação sobre o item}
+\end{Highlighting}
+\end{Shaded}
+
+    \subsubsection{Ordenar uma lista}\label{ordenar-uma-lista}
+
+    A ordenação de uma lista pode ser feita pelo método \texttt{sort}, que
+ordena a lista no local, isto é, destroi a versão original da lista, ou
+pela função \texttt{sorted} que retorna uma nova lista com os valores na
+ordem desejada.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} ('nums', 4495772552, [1, 3, 4, -3, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} ('nums', 4495772552, [-3, 1, 3, 4, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{n+nb}{abs}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} ('nums', 4495772552, [1, -3, 3, 4, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{nums}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} ('nums', 4495772552, [7, 4, 3, 1, -3])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{pals} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alfa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{,} \PY{n}{pals}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} ('pals', 4495732360, ['xis', 'alma', 'alfa', 'oi'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{pals}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{,} \PY{n}{pals}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} ('pals', 4495732360, ['alfa', 'alma', 'oi', 'xis'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{pals}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{n+nb}{len}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{,} \PY{n}{pals}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} ('pals', 4495732360, ['oi', 'xis', 'alfa', 'alma'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{pals}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{,} \PY{n}{pals}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} ('pals', 4495732360, ['xis', 'oi', 'alma', 'alfa'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{nums1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums1}\PY{p}{)}\PY{p}{,} \PY{n}{nums1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} ('nums1', 4495731016, [1, 3, 4, -3, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{nums2} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{nums1}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} ('nums2', 4495732616, [-3, 1, 3, 4, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{nums2} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{nums1}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n+nb}{abs}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} ('nums2', 4495732552, [1, 3, -3, 4, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{nums2} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{nums1}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums2}\PY{p}{)}\PY{p}{,} \PY{n}{nums2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} ('nums2', 4495681992, [7, 4, 3, 1, -3])
+\end{Verbatim}
+            
+    \subsubsection{Inverter a ordem dos itens de uma
+lista}\label{inverter-a-ordem-dos-itens-de-uma-lista}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{pals} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alfa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{,} \PY{n}{pals}\PY{p}{)}
+         
+         \PY{n}{pals}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{,} \PY{n}{pals}\PY{p}{)}
+         
+         \PY{n}{revs} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{reversed}\PY{p}{(}\PY{n}{pals}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{revs}\PY{p}{)}\PY{p}{,} \PY{n}{revs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+pals 4495729032 ['xis', 'alma', 'alfa', 'oi']
+pals 4495729032 ['oi', 'alfa', 'alma', 'xis']
+revs 4495125000 ['xis', 'alma', 'alfa', 'oi']
+
+    \end{Verbatim}
+
+    \subsubsection{Copiar uma lista}\label{copiar-uma-lista}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{anums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+         
+         \PY{n}{bnums} \PY{o}{=} \PY{n}{anums}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{anums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{anums}\PY{p}{)}\PY{p}{,} \PY{n}{anums}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bnums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{bnums}\PY{p}{)}\PY{p}{,} \PY{n}{bnums}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} ('anums', 4495123336, [1, 3, 4, -3, 7])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} ('bnums', 4495125768, [1, 3, 4, -3, 7])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{cnums} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{anums}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{anums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{anums}\PY{p}{)}\PY{p}{,} \PY{n}{anums}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{cnums}\PY{p}{)}\PY{p}{,} \PY{n}{cnums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+anums 4495123336 [1, 3, 4, -3, 7]
+cnums 4495771656 [1, 3, 4, -3, 7]
+
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{*** \emph{Muito cuidado com aliasing}
+***}{*** Muito cuidado com aliasing ***}}\label{muito-cuidado-com-aliasing}
+
+Chama-se \emph{aliasing} a situação em que mais do que uma variável
+encontra-se associada a um certo objeto, o que permite que esse objeto
+seja acessado de mais do que uma maneira.
+
+É importante lembrar que, em Python, uma variável comporta-se como um
+rótulo que é colocado em um objeto mas pode ser transferido para outro a
+qualquer momento. Esse modelo contrasta com a visão tradicional de
+variável como sendo um contentor de dados de um determinado tipo.
+
+    Por exemplo, considere o código abaixo
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{b} \PY{o}{=} \PY{n}{a}
+\end{Verbatim}
+
+
+    A linha 1 cria uma lista de inteiros e associa o rótulo \texttt{a} a
+ela.
+
+A linha 2 pega o objeto ao qual o rótulo \texttt{a} está associado e
+associa o rótulo \texttt{b} a ele.
+
+Daí em diante, podemos nos referir a esse objeto usando o nome
+\texttt{a} ou o nome \texttt{b}.
+
+    Sabemos que todo objeto em Python possui um identificador único. A
+função \texttt{id} retorna o identificador do objeto associado a um
+certo nome. O comando abaixo mostra que os nomes \texttt{a} e \texttt{b}
+estão associados ao mesmo objeto.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:} (4495615240, 4495615240)
+\end{Verbatim}
+            
+    Python dispõe de dois operadores que nos ajudarão nesta discussão:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{x\ ==\ y} é avaliada como \texttt{True} se os objetos
+  associados às variáveis \texttt{x} e \texttt{y} tiverem o mesmo valor.
+\item
+  \texttt{x\ is\ y} é avaliada como \texttt{True} se as variáveis
+  \texttt{x} e \texttt{y} estiverem associadas a um mesmo objeto.
+\end{itemize}
+
+    No nosso exemplo, como \texttt{a} e \texttt{b} estão associados ao mesmo
+objeto, quando aplicados a eles, os operadores \texttt{==} e \texttt{is}
+devem retornar \texttt{True}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{a} \PY{o}{==} \PY{n}{b}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{a} \PY{o+ow}{is} \PY{n}{b}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:} True
+\end{Verbatim}
+            
+    O mesmo não acontece quando uma variável \texttt{c} é criada a partir de
+uma operação ralizada sobre \texttt{a}. Por exemplo, o comando abaixo
+cria uma cópia do objeto associado à variável \texttt{a} e associa a
+variável \texttt{c} a ela.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{c} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+         \PY{n}{c}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} [1, 2, 3]
+\end{Verbatim}
+            
+    Como consequência, \texttt{a} e \texttt{c} estão associadas a objetos
+distintos, mas que têm o mesmo valor.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{a} \PY{o}{==} \PY{n}{c}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{a} \PY{o+ow}{is} \PY{n}{c}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} False
+\end{Verbatim}
+            
+    Vamos agora modificar os valores dos objetos associados às variáveis
+\texttt{b} e \texttt{c}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{b}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{b}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} [1, 20, 3]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{30}
+         \PY{n}{c}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} [1, 2, 30]
+\end{Verbatim}
+            
+    O que você acha que aconteceu com \texttt{a}?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{a}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:} [1, 20, 3]
+\end{Verbatim}
+            
+    Como \texttt{a} é um \emph{alias} de \texttt{b}, isto é, é um outro nome
+para um mesmo objeto, ele reflete as alterações que esse objeto sofreu.
+
+Por outro lado, como \texttt{a} e \texttt{c} se referem a objetos
+distintos, o que acontece com um não interfere na vida do outro.
+
+    \paragraph{Moral da história}\label{moral-da-histuxf3ria}
+
+\begin{quote}
+Ao criar uma variável, veja se você não está criando um \emph{alias}
+quando imaginava estar criando uma cópia.
+
+E se você precisar mesmo de um \emph{alias} não se esqueça de que ele
+será afetado por todas as alterações sofridas pelo seu `gêmeo'.
+\end{quote}
+
+    \subsubsection{\texorpdfstring{Slicing
+(\emph{fatiamento})}{Slicing (fatiamento)}}\label{slicing-fatiamento}
+
+A operação de fatiamento (\emph{slicing}) permite selecionar uma fatia
+(\emph{slice}) com mais do que um elemento de uma lista.
+
+Como no caso de \texttt{range}, \emph{slicing} também admite três
+parâmetros não obrigatórios:\\
+\texttt{umaLista{[}start:stop:step{]}}\\
+Nesse caso, serão selecionados os elementos contidos numa faixa que
+inclui \texttt{start} mas não inclui \texttt{stop}, escolhidos de
+\texttt{step} em \texttt{step}, isto é,\\
+\texttt{umaLista{[}start{]},\ umaLista{[}start+step{]},\ umaLista{[}start+2*step{]},\ ...}
+sem incluir ou ultrapassar \texttt{umaLista{[}stop{]}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} Vamos criar uma lista numérica}
+         \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495044040 [11, 22, 23, 34, 45, 16]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{} Seleção de uma faixa com todos os parâmetros}
+         \PY{n}{imps} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{imps}\PY{p}{)}\PY{p}{,} \PY{n}{imps}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums 4495044040 [11, 22, 23, 34, 45, 16]
+imps 4495773320 [11, 23, 45]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} Quando omitido, step assume o valor 1}
+         \PY{n}{fatia} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fatia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{fatia}\PY{p}{)}\PY{p}{,} \PY{n}{fatia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums  4495044040 [11, 22, 23, 34, 45, 16]
+fatia 4495553736 [22, 23, 34, 45]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{} Quando omitido, start assume o valor 0}
+         \PY{n}{fatia} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fatia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{fatia}\PY{p}{)}\PY{p}{,} \PY{n}{fatia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums  4495044040 [11, 22, 23, 34, 45, 16]
+fatia 4495040840 [11, 22, 23, 34, 45]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} Quando omitido, stop assume o valor len(lista)}
+          \PY{n}{fatia} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fatia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{fatia}\PY{p}{)}\PY{p}{,} \PY{n}{fatia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums  4495044040 [11, 22, 23, 34, 45, 16]
+fatia 4494915592 [22, 23, 34, 45, 16]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{c+c1}{\PYZsh{} Quando todos os parâmetros são omitidos, obtemos uma cópia da lista}
+          \PY{c+c1}{\PYZsh{} Note que os ids são diferentes}
+          \PY{n}{fatia} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{p}{:}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fatia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{fatia}\PY{p}{)}\PY{p}{,} \PY{n}{fatia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums  4495044040 [11, 22, 23, 34, 45, 16]
+fatia 4495772936 [11, 22, 23, 34, 45, 16]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{} Step pode ser negativo e, nesse caso, a relação entre start e stop se inverte}
+          \PY{n}{fatia} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fatia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{fatia}\PY{p}{)}\PY{p}{,} \PY{n}{fatia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums  4495044040 [11, 22, 23, 34, 45, 16]
+fatia 4494915592 [16, 45, 34, 23]
+
+    \end{Verbatim}
+
+    Você consegue explicar bem este último resultado?
+
+Você consegue antecipar o resultado de
+\texttt{fatia\ =\ nums{[}::-1{]}}?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{} Quando step é negativo e start e stop são omitidos, obtemos uma cópia invertida da lista}
+          \PY{n}{fatia} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fatia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{fatia}\PY{p}{)}\PY{p}{,} \PY{n}{fatia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums  4495044040 [11, 22, 23, 34, 45, 16]
+fatia 4495772936 [16, 45, 34, 23, 22, 11]
+
+    \end{Verbatim}
+
+    \subsection{Conversão de listas para estruturas e de estruturas para
+listas}\label{conversuxe3o-de-listas-para-estruturas-e-de-estruturas-para-listas}
+
+    \subsubsection{\texorpdfstring{Conversão de \emph{string} para
+\emph{lista de
+strings}}{Conversão de string para lista de strings}}\label{conversuxe3o-de-string-para-lista-de-strings}
+
+Já vimos que \emph{\texttt{split}} converte uma \emph{string} em uma
+lista de \emph{strings}, que pode depois, se desejado, ser convertida em
+uma lista de outro tipo.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{snums} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{12  3   456 78   90}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{snums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{snums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{snums}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+snums <class 'str'> 4495645912 '12  3   456 78   90'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{lnums} \PY{o}{=} \PY{n}{snums}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lnums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{lnums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{lnums}\PY{p}{)}\PY{p}{,} \PY{n}{lnums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+lnums <class 'list'> 4495772680 ['12', '3', '456', '78', '90']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{inums} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{lnums}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{inums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{inums}\PY{p}{)}\PY{p}{,} \PY{n}{inums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+inums <class 'list'> 4495041736 [12, 3, 456, 78, 90]
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Conversão de uma \emph{lista de strings}
+para
+\emph{string}}{Conversão de uma lista de strings para string}}\label{conversuxe3o-de-uma-lista-de-strings-para-string}
+
+O método \emph{join} faz essa conversão. A \emph{string} sobre a qual se
+aplica o método é usada como separador entre os elementos da lista na
+\emph{string} resultante.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{sres1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lnums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sres1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{sres1}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{sres1}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{sres1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sres1 <class 'str'> 4495731440 '1234567890'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{sres2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lnums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sres2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{sres2}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{sres2}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{sres2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sres2 <class 'str'> 4495779824 '12 3 456 78 90'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{sres3} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}x\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lnums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sres3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{sres3}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{sres3}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{sres3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sres3 <class 'str'> 4495019944 '12-x-3-x-456-x-78-x-90'
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Conversão de uma \emph{lista} qualquer
+para
+\emph{string}}{Conversão de uma lista qualquer para string}}\label{conversuxe3o-de-uma-lista-qualquer-para-string}
+
+Quando os elementos da lista não forem \emph{strings}, é necessário
+convertê-los antes de aplicar o método \emph{join}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{inums} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mf}{4.56}\PY{p}{,} \PY{l+m+mi}{78}\PY{p}{,} \PY{l+m+mf}{9.0}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{inums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{inums}\PY{p}{)}\PY{p}{,} \PY{n}{inums}\PY{p}{)}
+          
+          \PY{n}{knums} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{inums}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{knums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{knums}\PY{p}{)}\PY{p}{,} \PY{n}{knums}\PY{p}{)}
+          
+          \PY{n}{sres4} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{knums}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sres4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{type}\PY{p}{(}\PY{n}{sres4}\PY{p}{)}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{sres4}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{sres4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+inums <class 'list'> 4495615304 [12, 3, 4.56, 78, 9.0]
+knums <class 'list'> 4495041736 ['12', '3', '4.56', '78', '9.0']
+sres4 <class 'str'> 4495604520 '12 3 4.56 78 9.0'
+
+    \end{Verbatim}
+
+    \subsubsection{Dividir uma lista em pedaços de mesmo
+tamanho}\label{dividir-uma-lista-em-pedauxe7os-de-mesmo-tamanho}
+
+Há várias maneiras de dividir uma lista em pedaços do mesmo tamanho. Uma
+delas usa o conceito de \emph{list comprehension} que foi visto na
+\emph{Aula09}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{20}
+          \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nums}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nums}\PY{p}{)}
+          
+          \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{5}
+          \PY{n}{peds} \PY{o}{=} \PY{p}{[}\PY{n}{nums}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{p}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{peds}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nums [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+peds [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20]]
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Achatar (\emph{flatten}) uma
+lista}{Achatar (flatten) uma lista}}\label{achatar-flatten-uma-lista}
+
+O achatamento de uma lista converte uma \emph{lista de listas} em uma
+lista simples e também pode ser implementado por uma \emph{list
+comprehension}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{lista} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{]}\PY{p}{]}
+          \PY{n}{flat} \PY{o}{=} \PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{sublista} \PY{o+ow}{in} \PY{n}{lista} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublista}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{flat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+flat [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+    \end{Verbatim}
+
+    Esse processo "achata" apenas um nível. Se os elementos da lista
+original forem também \emph{listas de listas} a operação poderá ser
+repetida até chegar a uma lista completamente "achatada". Caso o
+aninhamento seja heterogêneo, será necessária uma abordagem mais
+potente, a ser desenvolvida nas \emph{Aulas 25-27}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{lista} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{]}\PY{p}{]}
+          \PY{n}{flat1} \PY{o}{=} \PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{sublista} \PY{o+ow}{in} \PY{n}{lista} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublista}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flat1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{flat1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+flat1 [[1, 2], [3, 4, 5], [6, 7], [8], [9, 10], [11, 12, 13], [14, 15], [16, 17, 18, 19, 20]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{flat2} \PY{o}{=} \PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{sublista} \PY{o+ow}{in} \PY{n}{flat1} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublista}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flat2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{flat2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+flat2 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+    \end{Verbatim}
+
+    \subsection{Exemplos de aplicação}\label{exemplos-de-aplicauxe7uxe3o}
+
+    \subsubsection{Criar uma lista com os elementos comuns a outras duas
+listas}\label{criar-uma-lista-com-os-elementos-comuns-a-outras-duas-listas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{list1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{list1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{list1}\PY{p}{)}\PY{p}{,} \PY{n}{list1}\PY{p}{)}
+          
+          \PY{n}{list2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{list2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{list2}\PY{p}{)}\PY{p}{,} \PY{n}{list2}\PY{p}{)}
+          
+          \PY{n}{inter} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{list1} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{list2}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{inter}\PY{p}{)}\PY{p}{,} \PY{n}{inter}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+list1 4495615496 [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+list2 4495681480 [0, 3, 6, 9, 12, 15, 18, 21, 24, 27]
+inter 4495773512 [0, 6, 12, 18]
+
+    \end{Verbatim}
+
+    \subsubsection{Cálculo da média
+ponderada}\label{cuxe1lculo-da-muxe9dia-ponderada}
+
+Dadas uma lista de notas e uma lista de pesos, calcular a média
+ponderada das notas dadas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{choice}
+          
+          \PY{n}{pesos} \PY{o}{=} \PY{p}{[}\PY{n}{choice}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pesos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{pesos}\PY{p}{)}\PY{p}{,} \PY{n}{pesos}\PY{p}{)}
+          
+          \PY{n}{notas} \PY{o}{=} \PY{p}{[}\PY{n}{choice}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{notas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{notas}\PY{p}{)}\PY{p}{,} \PY{n}{notas}\PY{p}{)}
+          
+          \PY{n}{total} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{notas}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pesos}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{total} \PY{o}{+}\PY{o}{=} \PY{n}{notas}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{pesos}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+          
+          \PY{n}{media} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{total} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{pesos}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{total}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{média}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{media}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+pesos 4495773640 [1, 2, 2, 3, 1, 3, 1, 3, 3, 3]
+notas 4495126088 [4, 2, 5, 4, 3, 3, 0, 7, 2, 8]
+total 93 média 4.2
+
+    \end{Verbatim}
+
+    \subsubsection{Eliminar elementos repetidos de uma
+lista}\label{eliminar-elementos-repetidos-de-uma-lista}
+
+Dada uma lista criar uma outra eliminando todos os elementos repetidos
+na primeira.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+          
+          \PY{n}{repets} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{repets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{repets}\PY{p}{)}\PY{p}{,} \PY{n}{repets}\PY{p}{)}
+          
+          \PY{n}{unicos} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{repets}\PY{p}{:}
+              \PY{k}{if} \PY{n}{x} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{unicos}\PY{p}{:}
+                  \PY{n}{unicos} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{repets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{repets}\PY{p}{)}\PY{p}{,} \PY{n}{repets}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unicos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{unicos}\PY{p}{)}\PY{p}{,} \PY{n}{unicos}\PY{p}{)}
+          
+          \PY{n}{sorted\PYZus{}unicos} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{unicos}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sorted(unicos)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{sorted\PYZus{}unicos}\PY{p}{)}\PY{p}{,} \PY{n}{sorted\PYZus{}unicos}\PY{p}{)}
+          
+          \PY{n}{unicos}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unicos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{id}\PY{p}{(}\PY{n}{unicos}\PY{p}{)}\PY{p}{,} \PY{n}{unicos}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+repets 4493688264 [5, 1, 2, 6, 4, 3, 2, 1, 2, 3, 2, 4, 4, 4, 5, 5, 4, 5, 2, 5]
+repets 4493688264 [5, 1, 2, 6, 4, 3, 2, 1, 2, 3, 2, 4, 4, 4, 5, 5, 4, 5, 2, 5]
+unicos 4495689992 [5, 1, 2, 6, 4, 3]
+sorted(unicos) 4495882632 [1, 2, 3, 4, 5, 6]
+unicos 4495689992 [1, 2, 3, 4, 5, 6]
+
+    \end{Verbatim}
+
+    \subsubsection{Remover a pontuação de uma
+frase}\label{remover-a-pontuauxe7uxe3o-de-uma-frase}
+
+Dada uma frase, remover todos os sinais de pontuação.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+          
+          \PY{n}{frase} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite uma frase: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pontuação} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{!}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsh{}\PYZdl{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZam{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{()*+,\PYZhy{}./:;\PYZlt{}=\PYZgt{}?@[}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{]\PYZca{}\PYZus{}`}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{|\PYZcb{}\PYZti{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{frase}\PY{p}{:}
+              \PY{k}{if} \PY{n}{c} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{pontuação}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{c}\PY{p}{]}
+          \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{frase\PYZus{}mod}\PY{p}{)}
+          \PY{n}{frase\PYZus{}mod}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:} 'Socorramme subi no ônibus em Marrocos'
+\end{Verbatim}
+            
+    \subsubsection{Remover a acentuação de uma
+frase}\label{remover-a-acentuauxe7uxe3o-de-uma-frase}
+
+Dada uma frase, remover todos os sinais de acentuação.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+          
+          \PY{n}{com\PYZus{}acentos} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{áàãâéêíóõôúçÁÀÃÂÉÊÍÓÕÔÚÇ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{sem\PYZus{}acentos} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aaaaeeioooucAAAAEEIOOOUC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          
+          \PY{n}{frase} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite uma frase: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{frase}\PY{p}{:}
+              \PY{k}{if} \PY{n}{c} \PY{o+ow}{in} \PY{n}{com\PYZus{}acentos}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{sem\PYZus{}acentos}\PY{p}{[}\PY{n}{com\PYZus{}acentos}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{]}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{c}\PY{p}{]}
+          \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{frase\PYZus{}mod}\PY{p}{)}
+          \PY{n}{frase\PYZus{}mod}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:} 'Socorram-me, subi no onibus em Marrocos!'
+\end{Verbatim}
+            
+    \subsubsection{Trocar maiúsculas por minúsculas em uma
+frase}\label{trocar-maiuxfasculas-por-minuxfasculas-em-uma-frase}
+
+Dada uma frase, trocar todas as letras maiúsculas por minúsculas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+         
+         \PY{n}{maiúsculas} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÊÍÓÕÔÚÇ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{minúsculas} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abcdefghijklmnopqrstuvwxyzáàãâéêíóõôúç}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+         \PY{n}{frase} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite uma frase: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{frase}\PY{p}{:}
+             \PY{k}{if} \PY{n}{c} \PY{o+ow}{in} \PY{n}{maiúsculas}\PY{p}{:}
+                 \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{minúsculas}\PY{p}{[}\PY{n}{maiúsculas}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{c}\PY{p}{]}
+         \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{frase\PYZus{}mod}\PY{p}{)}
+         \PY{n}{frase\PYZus{}mod}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 'socorram-me, subi no ônibus em marrocos!'
+\end{Verbatim}
+            
+    \subsubsection{Verificar se uma frase é
+palíndroma}\label{verificar-se-uma-frase-uxe9-paluxedndroma}
+
+Dada uma frase, verificar se ela é palíndroma, desconsiderando
+maiúsculas/minúsculas, acentos, espaços e pontuação. Uma frase é
+palíndroma se ela puder ser lida igualmente nos dois sentidos.
+
+    Um esboço de solução com alto nível de abstração poderia ser:
+
+\begin{itemize}
+\tightlist
+\item
+  ler a frase
+\item
+  eliminar caracteres a serem desconsiderados
+\item
+  verificar se é palíndroma
+\item
+  exibir o resultado da verificação
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} ler a frase original e convertê\PYZhy{}la em uma lista}
+          \PY{n}{frase\PYZus{}ori} \PY{o}{=} \PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite uma frase: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{frase\PYZus{}lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{frase\PYZus{}ori}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{c+c1}{\PYZsh{} criar frase modificada, eliminando caracteres a serem desconsiderados}
+          \PY{n}{minúsculas} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abcdefghijklmnopqrstuvwxyzáàãâéêíóõôúç}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{maiúsculas} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÊÍÓÕÔÚÇ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{com\PYZus{}acentos} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{áàãâéêíóõôúçÁÀÃÂÉÊÍÓÕÔÚÇ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{sem\PYZus{}acentos} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aaaaeeioooucAAAAEEIOOOUC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pontuação} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{!}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsh{}\PYZdl{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZam{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{()*+,\PYZhy{}./:;\PYZlt{}=\PYZgt{}?@[}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{]\PYZca{}\PYZus{}`}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{|\PYZcb{}\PYZti{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{frase\PYZus{}lista}\PY{p}{:}
+              \PY{k}{if} \PY{n}{c} \PY{o+ow}{in} \PY{n}{pontuação}\PY{p}{:}
+                  \PY{k}{pass}
+              \PY{k}{elif} \PY{n}{c} \PY{o+ow}{in} \PY{n}{maiúsculas}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{minúsculas}\PY{p}{[}\PY{n}{maiúsculas}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{]}
+              \PY{k}{elif} \PY{n}{c} \PY{o+ow}{in} \PY{n}{com\PYZus{}acentos}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{sem\PYZus{}acentos}\PY{p}{[}\PY{n}{com\PYZus{}acentos}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{]}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{c}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{} verificar se a frase modificada é palíndroma}
+          \PY{n}{frase\PYZus{}eh\PYZus{}palindroma} \PY{o}{=} \PY{k+kc}{True}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{frase\PYZus{}mod}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{frase\PYZus{}mod}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{n}{frase\PYZus{}mod}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{:}
+                  \PY{n}{frase\PYZus{}eh\PYZus{}palindroma} \PY{o}{=} \PY{k+kc}{False}
+                  \PY{k}{break}
+\end{Verbatim}
+
+
+    Uma implementação análoga mas usando um comando \texttt{while} seria
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{c+c1}{\PYZsh{} verificar se a frase modificada é palíndroma}
+          \PY{n}{frase\PYZus{}eh\PYZus{}palíndroma} \PY{o}{=} \PY{k+kc}{True}
+          \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{while} \PY{n}{frase\PYZus{}eh\PYZus{}palíndroma} \PY{o+ow}{and} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frase\PYZus{}mod}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{:}
+              \PY{k}{if} \PY{n}{frase\PYZus{}mod}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{n}{frase\PYZus{}mod}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{:}
+                  \PY{n}{eh\PYZus{}palíndroma} \PY{o}{=} \PY{k+kc}{False}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{c+c1}{\PYZsh{} exibir o resultado da verificação}
+          \PY{k}{if} \PY{n}{frase\PYZus{}eh\PYZus{}palindroma}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{frase\PYZus{}ori} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é palíndroma.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{else}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{frase\PYZus{}ori} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{não é palíndroma.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'Socorram-me, subi no ônibus em Marrocos!' é palíndroma.
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

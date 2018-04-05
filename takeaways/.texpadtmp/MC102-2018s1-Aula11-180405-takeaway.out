@@ -1,0 +1,31 @@
+\BOOKMARK [1][-]{section.1}{Revisitando Listas}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Opera\347\365es com listas}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Criar uma lista}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Alterar um ou mais elementos de uma lista}{subsection.1.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.1.3}{Inserir um item no fim de uma lista}{subsection.1.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.1.4}{Inserir um item numa posi\347\343o qualquer}{subsection.1.1}% 6
+\BOOKMARK [3][-]{subsubsection.1.1.5}{Estender uma lista acrescentando ao final todos os itens de uma outra lista}{subsection.1.1}% 7
+\BOOKMARK [3][-]{subsubsection.1.1.6}{Remover de uma lista o primeiro item com um dado valor}{subsection.1.1}% 8
+\BOOKMARK [3][-]{subsubsection.1.1.7}{Remover e retornar o item numa dada posi\347\343o}{subsection.1.1}% 9
+\BOOKMARK [3][-]{subsubsection.1.1.8}{Remover todos os itens de uma lista}{subsection.1.1}% 10
+\BOOKMARK [3][-]{subsubsection.1.1.9}{Obter o \355ndice do primeiro item com um dado valor}{subsection.1.1}% 11
+\BOOKMARK [3][-]{subsubsection.1.1.10}{Retornar o n\372mero de vezes que um dado valor aparece numa lista}{subsection.1.1}% 12
+\BOOKMARK [3][-]{subsubsection.1.1.11}{Fazer uma busca linear numa lista}{subsection.1.1}% 13
+\BOOKMARK [3][-]{subsubsection.1.1.12}{Ordenar uma lista}{subsection.1.1}% 14
+\BOOKMARK [3][-]{subsubsection.1.1.13}{Inverter a ordem dos itens de uma lista}{subsection.1.1}% 15
+\BOOKMARK [3][-]{subsubsection.1.1.14}{Copiar uma lista}{subsection.1.1}% 16
+\BOOKMARK [3][-]{subsubsection.1.1.15}{Slicing \(fatiamento\)}{subsection.1.1}% 17
+\BOOKMARK [2][-]{subsection.1.2}{Convers\343o de listas para estruturas e de estruturas para listas}{section.1}% 18
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Convers\343o de string para lista de strings}{subsection.1.2}% 19
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Convers\343o de uma lista de strings para string}{subsection.1.2}% 20
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Convers\343o de uma lista qualquer para string}{subsection.1.2}% 21
+\BOOKMARK [3][-]{subsubsection.1.2.4}{Dividir uma lista em peda\347os de mesmo tamanho}{subsection.1.2}% 22
+\BOOKMARK [3][-]{subsubsection.1.2.5}{Achatar \(flatten\) uma lista}{subsection.1.2}% 23
+\BOOKMARK [2][-]{subsection.1.3}{Exemplos de aplica\347\343o}{section.1}% 24
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Criar uma lista com os elementos comuns a outras duas listas}{subsection.1.3}% 25
+\BOOKMARK [3][-]{subsubsection.1.3.2}{C\341lculo da m\351dia ponderada}{subsection.1.3}% 26
+\BOOKMARK [3][-]{subsubsection.1.3.3}{Eliminar elementos repetidos de uma lista}{subsection.1.3}% 27
+\BOOKMARK [3][-]{subsubsection.1.3.4}{Remover a pontua\347\343o de uma frase}{subsection.1.3}% 28
+\BOOKMARK [3][-]{subsubsection.1.3.5}{Remover a acentua\347\343o de uma frase}{subsection.1.3}% 29
+\BOOKMARK [3][-]{subsubsection.1.3.6}{Trocar mai\372sculas por min\372sculas em uma frase}{subsection.1.3}% 30
+\BOOKMARK [3][-]{subsubsection.1.3.7}{Verificar se uma frase \351 pal\355ndroma}{subsection.1.3}% 31

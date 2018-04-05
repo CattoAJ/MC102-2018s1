@@ -13,7 +13,7 @@
 \documentclass[11pt,a4paper]{article}
 
     
-    
+    \usepackage[brazil]{babel}
     \usepackage[T1]{fontenc}
     % Nicer default font (+ math font) than Computer Modern for most use cases
     \usepackage{mathpazo}
@@ -133,7 +133,6 @@
     \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
     \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
     
-    \newcommand{\comment}[1]{}
     
     % Define a nice break command that doesn't care if a line doesn't already
     % exist.
@@ -142,15 +141,13 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{Laços encaixados e uma introdução à sua otimização \\
+    \title{Laços encaixados e uma introdução à sua otimização \\ 
            \small{MC102-2018s1-Aula10-180403}
            }
     \author{Arthur J. Catto, PhD \\
-    		\small{ajcatto@g.unicamp.br}
-    		}
-    \date{03 de abril de 2018}    
-    
-    
+            \small{ajcatto@g.unicamp.br}
+            }
+    \date{05 de abril de 2018}
 
     % Pygments definitions
     
@@ -285,12 +282,12 @@
     
     
 
-\comment{    
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
-        \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
-\end{Verbatim}
-}
+%    
+%    \begin{Verbatim}[commandchars=\\\{\}]
+%{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+%        \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
+%\end{Verbatim}
+
 
     \section{Laços encaixados e uma introdução à sua
 otimização}\label{lauxe7os-encaixados-e-uma-introduuxe7uxe3o-uxe0-sua-otimizauxe7uxe3o}
@@ -318,8 +315,8 @@ semelhante à de vários exemplos anteriores:
 \end{Highlighting}
 \end{Shaded}
 
-    Para \textbf{\texttt{ler\ a\ sequência\ S}} temos pelo menos duas saídas
-já conhecidas:
+    Para \texttt{“ler\ a\ sequência\ S”} temos pelo menos duas saídas já
+conhecidas:
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Número de elementos? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
@@ -331,7 +328,7 @@ já conhecidas:
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[12, 34, 65, 22, 76, 35, 98, 47, 18, 56]
+[12, 23, 34, 45, 56]
 
     \end{Verbatim}
 
@@ -342,18 +339,18 @@ já conhecidas:
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[12, 34, 65, 22, 76, 35, 98, 47, 18, 56]
+[12, 23, 34, 45, 56]
 
     \end{Verbatim}
 
-    Em problemas como esse, em geral vamos querer trabalhar com sequências
-mais longas.\\
+    No entanto, em problemas como este, em geral vamos querer trabalhar com
+sequências mais longas.\\
 Isso inviabiliza a digitação de valores, especialmente quando se lembra
 que a execução poderá ter que ser repetida diversas vezes enquanto
 depuramos o algoritmo.
 
-Uma saída mais apropriada é gerar uma sequência de valores aleatórios
-usando o módulo \emph{random}.
+Uma saída mais apropriada é gerar uma sequência de valores
+psudo-aleatórios usando o módulo \emph{random}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{choices}
@@ -366,16 +363,124 @@ usando o módulo \emph{random}.
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[767017, 132838, 862093, 573006, 766676, 6976, 45506, 954672, 504030, 638343]
-[767017, 132838, 862093, 573006, 766676, 6976, 45506, 954672, 504030, 638343]
+[500815, 694131, 372196, 892086, 397934, 4934, 813883, 901277, 767670, 261677]
+[500815, 694131, 372196, 892086, 397934, 4934, 813883, 901277, 767670, 261677]
 
     \end{Verbatim}
+
+    Sequências de números pseudo-aleatórios são geradas a partir de uma
+\emph{semente}. Se usarmos uma mesma \emph{semente} seremos capazes de
+repetir uma sequência quantas vezes quisermos.
+
+Para gerar uma sequência ``imprevisível'', em geral usamos o valor do
+relógio da máquina como \emph{semente}.\\
+Se salvarmos o valor usado como \emph{semente}, a sequência poderá ser
+repetida. Por exemplo,...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{t\PYZus{}inicial} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{t\PYZus{}inicial}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 1522894266.992621
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{t\PYZus{}inicial}\PY{p}{)}
+        
+        \PY{n}{S1} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{S1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[683022, 240020, 532725, 677507, 228121, 376049, 469446, 138107, 901865, 869104]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{S2} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{S2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[66377, 243989, 165177, 620341, 80404, 718506, 632689, 508072, 364610, 835636]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{S1} \PY{o}{==} \PY{n}{S2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} False
+\end{Verbatim}
+            
+    Neste caso, geramos \texttt{S1} e depois \texttt{S2}, sem ``re-semear''
+o gerador de aleatórios. Por causa disso, \texttt{S1} e \texttt{S2} são
+diferentes.
+
+No entanto, quando ``re-semeamos'' o gerador, obtemos \texttt{S3} igual
+a \texttt{S1}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{t\PYZus{}inicial}\PY{p}{)}
+         
+         \PY{n}{S3} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{S3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[683022, 240020, 532725, 677507, 228121, 376049, 469446, 138107, 901865, 869104]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{S1} \PY{o}{==} \PY{n}{S3}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} True
+\end{Verbatim}
+            
+    Com isso, nossa geração de dados fica assim...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{t\PYZus{}inicial} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{t\PYZus{}inicial}\PY{p}{)}
+         
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{S} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
 
     Uma vez obtida a sequência, vamos procurar o par mais próximo. Para isso
 temos que comparar todos os pares possíveis, isto é, o problema pede uma
 solução por enumeração exaustiva.
 
-Aproveitando exemplos anteriores, podemos esboçar nossa solução como:
+    Aproveitando exemplos anteriores, podemos esboçar nossa solução como:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -389,73 +494,76 @@ Aproveitando exemplos anteriores, podemos esboçar nossa solução como:
     Vamos representar esse esboço em Python?
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
-        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
-                    \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
+                     \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
     Agora só falta exibir o resultado...
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:6\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:6\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:6\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-     10       0  767017       4  766676     341
+     10       1  266874       3  282097   15223
 
     \end{Verbatim}
 
-    E se quisermos testar nosso programa com diferentes sequências?\\
+    E se quisermos testar nosso programa com diferentes sequências?
+
 \begin{itemize}
-\item	Podemos, por exemplo, gerar uma longa sequência S e depois extrair
-dela subsequências a serem estudadas.
+\tightlist
+\item
+  Podemos, por exemplo, gerar uma longa sequência S e depois extrair
+  dela subsequências a serem estudadas.
 \end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{choices}
-        
-        \PY{n}{S} \PY{o}{=} \PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100000000}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10000000}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{choices}
+         
+         \PY{n}{S} \PY{o}{=} \PY{n}{choices}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100000000}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10000000}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{:}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[56894249, 3073965, 72567090, 10370402, 67991005, 21109721, 55403145, 89433917, 36267768, 6174833]
-[50007272, 28857364, 24879461, 13915948, 8666166, 83157594, 22510722, 74591083, 68654306, 61844282]
+[87431599, 80651501, 52357837, 77625915, 85708491, 98761912, 88616489, 32882510, 57082936, 97537141]
+[37269349, 89051813, 34438878, 71097816, 72041190, 23154799, 11812074, 46524083, 17160639, 36946252]
 
     \end{Verbatim}
 
-    Para poder comparar o desempenho do nosso algoritmo para sequências de
+    Para poder analisar o desempenho do nosso algoritmo para sequências de
 diversos tamanhos, vamos medir o tempo gasto usando a função
 \texttt{perf\_counter} do módulo \texttt{time}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
-        
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
-            \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-            \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                    \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
-                        \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
-            \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-            \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:8\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
+                         \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:8\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
       n      demora         i      S[i]         j      S[j]      dist
-     10     0.00004         0  56894249         6  55403145   1491104
-    100     0.00329        27  89091352        59  89102102     10750
-   1000     0.27427       270  81486488       663  81486244       244
-  10000    27.22575       638  44352442      4730  44352442         0
+     10     0.00003         0  87431599         6  88616489   1184890
+    100     0.00245        47   1423628        53   1420597      3031
+   1000     0.24583       167  21009646       891  21009553        93
+  10000    25.34181       855  15585938      6203  15585940         2
 
     \end{Verbatim}
 
@@ -490,47 +598,60 @@ examinar?
 \end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
-        
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
-            \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-            \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                    \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
-                        \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
-            \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-            \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:8\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \subparagraph{Solução}\label{soluuxe7uxe3o}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
-        
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        
-        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
-            \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-            \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
-                    \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
-                        \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
-            \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-            \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:8\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
+                         \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                         
+             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:8\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
       n      demora         i      S[i]         j      S[j]      dist
-     10     0.00003         0  56894249         6  55403145   1491104
-    100     0.00201        27  89091352        59  89102102     10750
-   1000     0.14664       270  81486488       663  81486244       244
-  10000    13.54334       638  44352442      4730  44352442         0
+     10     0.00005         0  87431599         6  88616489   1184890
+    100     0.00411        47   1423628        53   1420597      3031
+   1000     0.28050       167  21009646       891  21009553        93
+  10000    27.01262       855  15585938      6203  15585940         2
+
+    \end{Verbatim}
+
+    \subparagraph{Solução}\label{soluuxe7uxe3o}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{l+m+mf}{10e10}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}dist}\PY{p}{:}
+                         \PY{n}{min\PYZus{}i}\PY{p}{,} \PY{n}{min\PYZus{}j}\PY{p}{,} \PY{n}{min\PYZus{}dist} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{S}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{S}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                         
+             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:7\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+si}{\PYZob{}min\PYZus{}i:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}i]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}j:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}S[min\PYZus{}j]:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}min\PYZus{}dist:8\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+      n      demora         i      S[i]         j      S[j]      dist
+     10     0.00002         0  87431599         6  88616489   1184890
+    100     0.00150        47   1423628        53   1420597      3031
+   1000     0.14854       167  21009646       891  21009553        93
+  10000    12.94000       855  15585938      6203  15585940         2
 
     \end{Verbatim}
 
@@ -587,10 +708,8 @@ Um bom algoritmo de ordenação de listas tem complexidade
 
     Você consegue incorporar essas alterações à nossa solução?
 
-\pagebreak
-
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}7\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{tempo}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}6\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}6\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}6\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}6\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}6\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
@@ -607,17 +726,17 @@ Um bom algoritmo de ordenação de listas tem complexidade
 
     \begin{Verbatim}[commandchars=\\\{\}]
       n       tempo       i    S[i]       j    S[j]    dist
-     10     0.00002       0  56894249       6  55403145  1491104
-    100     0.00148      27  89091352      59  89102102   10750
-   1000     0.14082     270  81486488     663  81486244     244
-  10000    12.12684     638  44352442    4730  44352442       0
+     10     0.00004       0  87431599       6  88616489  1184890
+    100     0.00216      47  1423628      53  1420597    3031
+   1000     0.15759     167  21009646     891  21009553      93
+  10000    13.16114     855  15585938    6203  15585940       2
 
     \end{Verbatim}
 
     \subsubsection{Solução}\label{soluuxe7uxe3o}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{tempo}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{i}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[i]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{j}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S[j]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{1000000}\PY{p}{,} \PY{l+m+mi}{10000000}\PY{p}{]}\PY{p}{:}
@@ -634,26 +753,24 @@ Um bom algoritmo de ordenação de listas tem complexidade
 
     \begin{Verbatim}[commandchars=\\\{\}]
        n       tempo         i      S[i]         j      S[j]      dist
-      10     0.00001         5  55403145         6  56894249   1491104
-     100     0.00006        86  89091352        87  89102102     10750
-    1000     0.00045       831  81486244       832  81486488       244
-   10000     0.00531      4495  44352442      4496  44352442         0
-  100000     0.07917       648    705434       649    705434         0
- 1000000     0.94604       443     45255       444     45255         0
-10000000    15.12531        14       100        15       100         0
+      10     0.00001         6  87431599         7  88616489   1184890
+     100     0.00004         1   1420597         2   1423628      3031
+    1000     0.00046       226  21009553       227  21009646        93
+   10000     0.00539      1565  15585938      1566  15585940         2
+  100000     0.07483      2767   2713006      2768   2713006         0
+ 1000000     1.00394        93     10888        94     10888         0
+10000000    15.02493        28       258        29       258         0
 
     \end{Verbatim}
 
-    Nosso algoritmo agora passa a ter um bom desempenho, mesmo para grandes
+    Nosso algoritmo agora tem um bom desempenho, mesmo para grandes
 valores de \(n\).
-
-\pagebreak
 
     \subsection{\texorpdfstring{Exemplo: \emph{Gerar todos os números primos
 menores que um valor
 dado}}{Exemplo: Gerar todos os números primos menores que um valor dado}}\label{exemplo-gerar-todos-os-nuxfameros-primos-menores-que-um-valor-dado}
 
-Ler um inteiro \(n\) e criar uma lista com todos os números primos
+Ler um inteiro \(n\) e criar uma lista \(P\) com todos os números primos
 menores do que \(n\).
 
     \subsubsection{Desenvolvimento da
@@ -668,42 +785,45 @@ Vamos tentar?
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{p}{]}
         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
             \PY{c+c1}{\PYZsh{} verificar se k é primo}
-            \PY{c+c1}{\PYZsh{} se k é primo: adicionar k à lista de primos}
+            \PY{c+c1}{\PYZsh{} se k é primo: adicionar k à lista P}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{primos}\PY{p}{)}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{P}\PY{p}{)}
 \end{Verbatim}
 
 
     Feito o primeiro esboço, podemos começar a detalhá-lo...
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} ler n}
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} ler n}
          \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Primos até quanto? }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{p}{]}
          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
              \PY{c+c1}{\PYZsh{} testar se k é primo}
              \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{True}
-             \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+             \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{k}{while} \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o+ow}{and} \PY{n}{d} \PY{o}{\PYZlt{}} \PY{n}{k}\PY{p}{:}
                  \PY{k}{if} \PY{n}{k} \PY{o}{\PYZpc{}} \PY{n}{d} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
                      \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{False}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{d} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
              \PY{c+c1}{\PYZsh{} se k é primo: adicionar k à lista primos}
              \PY{k}{if} \PY{n}{k\PYZus{}eh\PYZus{}primo}\PY{p}{:}
-                 \PY{n}{primos} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
+                 \PY{n}{P} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{primos}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{P}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -712,41 +832,47 @@ Vamos tentar?
 
     \end{Verbatim}
 
-    Lembrando do exemplo anterior... Será que esse algoritmo funciona bem para qualquer tamanho de amostra?
+    Lembrando do exemplo anterior...\\
+Será que esse algoritmo funciona bem para qualquer tamanho de amostra?
 
-Você consegue antecipar uma resposta antes de testá-lo? Por que?
+Você consegue antecipar uma resposta antes de testá-lo?\\
+Por que?
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[:4]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:12\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[\PYZhy{}4:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          
          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
              \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{p}{]}
              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
                  \PY{c+c1}{\PYZsh{} testar se k é primo}
                  \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{True}
-                 \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{2}
+                 \PY{k}{while} \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o+ow}{and} \PY{n}{d} \PY{o}{\PYZlt{}} \PY{n}{k}\PY{p}{:}
                      \PY{k}{if} \PY{n}{k} \PY{o}{\PYZpc{}} \PY{n}{d} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
                          \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{False}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{d} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                         
                  \PY{c+c1}{\PYZsh{} se k é primo: adicionar k à lista primos}
                  \PY{k}{if} \PY{n}{k\PYZus{}eh\PYZus{}primo}\PY{p}{:}
-                     \PY{n}{primos} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
+                     \PY{n}{P} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
              
              \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(P):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}P[:4]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}P[\PYZhy{}4:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00003         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00049        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.05424       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     4.50629      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
+       n      demora   \#primos  P[:4]         P[-4:]
+      10     0.00001         4  [2, 3, 5, 7]  [2, 3, 5, 7]
+     100     0.00024        25  [2, 3, 5, 7]  [79, 83, 89, 97]
+    1000     0.01881       168  [2, 3, 5, 7]  [977, 983, 991, 997]
+   10000     0.91895      1229  [2, 3, 5, 7]  [9941, 9949, 9967, 9973]
 
     \end{Verbatim}
 
@@ -764,46 +890,47 @@ impraticável para grandes valores de \(n\).
 \item
   Como os candidatos serão ímpares, não faz sentido tentar dividi-los
   por números pares, o que também reduz o número de divisores à metade.
-\item
-  O loop interno pode ser interrompido assim que concluirmos que \emph{k
-  não é primo},
 \end{itemize}
 
     Vamos incorporar essas alterações ao nosso algoritmo.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}34}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[:4]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:12\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[\PYZhy{}4:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          
-         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{]}\PY{p}{:}
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{:}
              
              \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
                  \PY{c+c1}{\PYZsh{} testar se k é primo}
                  \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{True}
-                 \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{3}
+                 \PY{k}{while} \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o+ow}{and} \PY{n}{d} \PY{o}{\PYZlt{}} \PY{n}{k}\PY{p}{:}
                      \PY{k}{if} \PY{n}{k} \PY{o}{\PYZpc{}} \PY{n}{d} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
                          \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{False}
-                         \PY{k}{break}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{d} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{2}
+                         
                  \PY{c+c1}{\PYZsh{} se k é primo: adicionar k à lista primos}
                  \PY{k}{if} \PY{n}{k\PYZus{}eh\PYZus{}primo}\PY{p}{:}
-                     \PY{n}{primos} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
+                     \PY{n}{P} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
+                     
              \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(P):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}P[:4]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}P[\PYZhy{}4:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
-\pagebreak
 
     \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00093         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00008        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00426       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.27773      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
+       n      demora   \#primos  P[:4]         P[-4:]
+      10     0.00002         4  [2, 3, 5, 7]  [2, 3, 5, 7]
+     100     0.00013        25  [2, 3, 5, 7]  [79, 83, 89, 97]
+    1000     0.00790       168  [2, 3, 5, 7]  [977, 983, 991, 997]
+   10000     0.47398      1229  [2, 3, 5, 7]  [9941, 9949, 9967, 9973]
+  100000    35.98243      9592  [2, 3, 5, 7]  [99961, 99971, 99989, 99991]
 
     \end{Verbatim}
 
@@ -826,39 +953,42 @@ Você está satisfeito com os limites dos \emph{loops}?
 \end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[:4]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:12\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[\PYZhy{}4:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          
          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{1000000}\PY{p}{]}\PY{p}{:}
              
              \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
                  \PY{c+c1}{\PYZsh{} testar se k é primo}
                  \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{True}
-                 \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{while} \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o+ow}{and} \PY{n}{d} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
                      \PY{k}{if} \PY{n}{k} \PY{o}{\PYZpc{}} \PY{n}{d} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
                          \PY{n}{k\PYZus{}eh\PYZus{}primo} \PY{o}{=} \PY{k+kc}{False}
-                         \PY{k}{break}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{d} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{2}
+                         
                  \PY{c+c1}{\PYZsh{} se k for primo, adicionar k à lista primos}
                  \PY{k}{if} \PY{n}{k\PYZus{}eh\PYZus{}primo}\PY{p}{:}
-                     \PY{n}{primos}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+                     \PY{n}{P} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{]}
+                     
              \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(P):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}P[:4]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}P[\PYZhy{}4:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00014         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00009        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00063       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.01023      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
-  100000     0.14949      9592  [2, 3, 5, 7, 11, 13]  [99923, 99929, 99961, 99971, 99989, 99991]
- 1000000     3.04629     78498  [2, 3, 5, 7, 11, 13]  [999931, 999953, 999959, 999961, 999979, 999983]
+       n      demora   \#primos  P[:4]         P[-4:]
+      10     0.00011         4  [2, 3, 5, 7]  [2, 3, 5, 7]
+     100     0.00004        46  [2, 3, 5, 7]  [93, 95, 97, 99]
+    1000     0.00031       489  [2, 3, 5, 7]  [993, 995, 997, 999]
+   10000     0.00279      4966  [2, 3, 5, 7]  [9993, 9995, 9997, 9999]
+  100000     0.03011     49892  [2, 3, 5, 7]  [99993, 99995, 99997, 99999]
+ 1000000     0.21948    499658  [2, 3, 5, 7]  [999993, 999995, 999997, 999999]
 
     \end{Verbatim}
 
@@ -866,166 +996,8 @@ Você está satisfeito com os limites dos \emph{loops}?
 grande número de aplicações.\\
 Mas, e se quiséssemos algo mais rápido?
 
-Podemos tentar outra abordagem.\\
-Por exemplo, criar uma lista de \emph{não primos} e, a partir dela,
-derivar uma lista de \emph{primos}.
-
-Para criar a lista de \emph{não primos}, para cada candidato \(k\) vamos
-colocar na lista todos os seus múltiplos ímpares.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}32}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
-         
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         
-         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{:}
-             \PY{n}{raiz\PYZus{}n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
-             
-             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-             \PY{n}{nao\PYZus{}primos} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         
-             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{raiz\PYZus{}n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
-                 \PY{k}{for} \PY{n}{ik} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{k}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{p}{:}
-                     \PY{n}{nao\PYZus{}primos} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{ik}\PY{p}{]}
-                     
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
-             \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
-                 \PY{k}{if} \PY{n}{p} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nao\PYZus{}primos}\PY{p}{:}
-                     \PY{n}{primos} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{]}
-             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-             
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00134         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00003        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00229       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.22776      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
-  100000    23.76659      9592  [2, 3, 5, 7, 11, 13]  [99923, 99929, 99961, 99971, 99989, 99991]
-
-    \end{Verbatim}
-
-    O desempenho piorou bastante... o que terá acontecido?
-
-\begin{itemize}
-\tightlist
-\item
-  Você consegue ver quantos \emph{loops} \textbf{explícitos} e
-  \textbf{implícitos} existem agora na nossa solução?\\
-  Será possível melhorar isso?
-\item
-  Examine as \emph{ranges} dos \emph{loops}?\\
-  Há algo estranho? Algo que possa ser melhorado?
-\end{itemize}
-
-    Vamos exibir também o número de elementos na lista de \emph{não
-primos}.\\
-Veja se isso ajuda...
-
-\pagebreak
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
-         
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         
-         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{:}
-             \PY{n}{raiz\PYZus{}n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
-                 
-             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-             \PY{n}{nao\PYZus{}primos} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         
-             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{raiz\PYZus{}n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
-                 \PY{k}{for} \PY{n}{ik} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{k}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{p}{:}
-                     \PY{n}{nao\PYZus{}primos}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ik}\PY{p}{)}
-                     
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
-             \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
-                 \PY{k}{if} \PY{n}{p} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nao\PYZus{}primos}\PY{p}{:}
-                     \PY{n}{primos}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{p}\PY{p}{)}
-             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-             
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00140         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00006        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00261       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.22105      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
-  100000    23.65300      9592  [2, 3, 5, 7, 11, 13]  [99923, 99929, 99961, 99971, 99989, 99991]
-
-    \end{Verbatim}
-
-    Você vê algo estranho?
-
-    Observe o comprimento da lista de \emph{não primos}.\\
-Faz sentido? O que terá causado isso?
-
-    Veja o que fazemos nos \emph{loops} das linhas 10 e 11.\\
-Para cada \(k\) na faixa \(\left[\,3, 5, \ldots \sqrt{n}\,\right]\)
-colocamos todos os seus múltiplos na lista de \emph{não primos}.
-
-Pense no que acontece para \(k = 3, 5\) e \(7\).\\
-Agora pense no que acontece para \(k = 9\).\\
-Nós vamos acrescentar à lista todos os múltiplos de \(9\). Mas eles já
-estão lá porque todos são múltiplos de \(3\).\\
-Nossa lista de \emph{não primos} cresce desnecessariamente. E isso vai
-nos prejudicar severamente quando formos usá-la para buscar \(p\) na
-linha 16.
-
-    Veja o que acontece quando trocamos \emph{listas} por \emph{conjuntos}
-nesse mesmo algoritmo.
-
-\pagebreak
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
-         
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         
-         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{1000000}\PY{p}{]}\PY{p}{:}
-             \PY{n}{raiz\PYZus{}n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
-                 
-             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-             \PY{n}{nao\PYZus{}primos} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
-         
-             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{raiz\PYZus{}n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
-                 \PY{k}{for} \PY{n}{ik} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{k}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{p}{:}
-                     \PY{n}{nao\PYZus{}primos}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{ik}\PY{p}{)}
-                     
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
-             \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
-                 \PY{k}{if} \PY{n}{p} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nao\PYZus{}primos}\PY{p}{:}
-                     \PY{n}{primos}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{p}\PY{p}{)}
-             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-             
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.01075         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00005        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00065       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.00723      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
-  100000     0.09169      9592  [2, 3, 5, 7, 11, 13]  [99923, 99929, 99961, 99971, 99989, 99991]
- 1000000     1.04663     78498  [2, 3, 5, 7, 11, 13]  [999931, 999953, 999959, 999961, 999979, 999983]
-
-    \end{Verbatim}
-
-    Além de ser menor, a representação de \texttt{nao\_primos} como
-\emph{conjunto} ao invés de \emph{lista} leva uma grande vantagem na
-hora dos testes de pertinência na linha 16.
-
-    A desvantagem da \emph{lista} pode ser revertida se adotarmos a
-estratégia do \emph{crivo de Eratóstenes}:
+    Podemos tentar outra abordagem. Por exemplo, a estratégia do \emph{crivo
+de Eratóstenes}:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1033,104 +1005,168 @@ estratégia do \emph{crivo de Eratóstenes}:
 \item
   Criamos uma lista com todos os candidatos possíveis.
 \item
-  Percorremos a lista da esquerda para a direita e, para cada candidato,
-  eliminamos todos os seus múltiplos.
+  Percorremos a lista da esquerda para a direita e, para cada candidato
+  ainda não riscado, riscamos todos os seus múltiplos.
 \item
-  Ao chegar ao final, todos os candidatos remanescentes serão primos.
+  Ao chegar ao final, todos os candidatos não riscados serão primos.
 \end{enumerate}
 
-    Para evitar o custo da \emph{eliminação} dos múltiplos, vamos apenas
-marcá-los como \emph{não primos}.\\
-Para isso criamos uma lista cujos elementos são todos \texttt{True} e
-convertemos esse valor para \texttt{False} quando o elemento é
-eliminado.
+    Para representar o \emph{crivo} e os candidatos \emph{riscados} ou não,
+vamos usar uma lista de \emph{bools}.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{crivo{[}i{]}\ =\ True} representará \emph{i não está riscado}
+\item
+  \texttt{crivo{[}i{]}\ =\ False} representará \emph{i está riscado}
+\end{itemize}
+
+Inicialmente, todos os itens do \emph{crivo} serão \texttt{True} e esse
+valor será convertido para \texttt{False} se (e quando) o item for
+riscado.
 
 Vamos ver como fica...
 
-\pagebreak
-
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[:4]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:12\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[\PYZhy{}4:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{1000000}\PY{p}{]}\PY{p}{:}
-             \PY{n}{raiz\PYZus{}n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
                  
              \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             
              \PY{n}{crivo} \PY{o}{=} \PY{p}{[}\PY{k+kc}{True}\PY{p}{]} \PY{o}{*} \PY{n}{n}
-             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{raiz\PYZus{}n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
                  \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{:}
                      \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{n}{k}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{p}{:}
                          \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                         
+             \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{P} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{p}{]}
+             
              \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(P):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}P[:4]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}P[\PYZhy{}4:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00347         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00002        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00009       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.00093      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
-  100000     0.01309      9592  [2, 3, 5, 7, 11, 13]  [99923, 99929, 99961, 99971, 99989, 99991]
- 1000000     0.12817     78498  [2, 3, 5, 7, 11, 13]  [999931, 999953, 999959, 999961, 999979, 999983]
+       n      demora   \#primos  P[:4]         P[-4:]
+      10     0.02260         4  [2, 3, 5, 7]  [2, 3, 5, 7]
+     100     0.00002        25  [2, 3, 5, 7]  [79, 83, 89, 97]
+    1000     0.00016       168  [2, 3, 5, 7]  [977, 983, 991, 997]
+   10000     0.00105      1229  [2, 3, 5, 7]  [9941, 9949, 9967, 9973]
+  100000     0.01105      9592  [2, 3, 5, 7]  [99961, 99971, 99989, 99991]
+ 1000000     0.12093     78498  [2, 3, 5, 7]  [999959, 999961, 999979, 999983]
+
+    \end{Verbatim}
+
+    É possível transformar a iteração das linhas 15-18 em uma \emph{list
+comprehension}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[:4]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:12\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[\PYZhy{}4:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{1000000}\PY{p}{]}\PY{p}{:}
+                 
+             \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{crivo} \PY{o}{=} \PY{p}{[}\PY{k+kc}{True}\PY{p}{]} \PY{o}{*} \PY{n}{n}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{n}{k}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+             \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+             
+             \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(P):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}P[:4]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}P[\PYZhy{}4:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       n      demora   \#primos  P[:4]         P[-4:]
+      10     0.00234         4  [2, 3, 5, 7]  [2, 3, 5, 7]
+     100     0.00002        25  [2, 3, 5, 7]  [79, 83, 89, 97]
+    1000     0.00009       168  [2, 3, 5, 7]  [977, 983, 991, 997]
+   10000     0.00090      1229  [2, 3, 5, 7]  [9941, 9949, 9967, 9973]
+  100000     0.01182      9592  [2, 3, 5, 7]  [99961, 99971, 99989, 99991]
+ 1000000     0.12185     78498  [2, 3, 5, 7]  [999959, 999961, 999979, 999983]
 
     \end{Verbatim}
 
     Finalmente, podemos acelerar nosso algoritmo ainda mais substituindo o
-\emph{loop} das linhas 11-12 por uma \emph{list comprehension}... - Os
-elementos selecionados pela \texttt{range} da linha 11 são
-\texttt{crivo{[}k*k{]},\ crivo{[}k*k\ +\ 2*k{]},\ ...}.\\
-- Numa faixa \texttt{{[}esq...dir)} há
-\texttt{(dir\ -\ 1\ -\ esq)\ //\ larg} intervalos de largura
-\texttt{larg}. - Por exemplo, veja a figura abaixo, supondo \(esq = 1\),
-\(dir = 10\) e \(larg = 1, 2, \dots5\)\\
-\includegraphics{img/intervalos.png} - Adaptando para o nosso caso e
-incluindo o elemento inicial, ao todo serão afetados\\
-\texttt{(n\ -\ 1\ -\ k*k)\ //\ (2*k)\ +\ 1} elementos, cujos valores
-devem passar para \texttt{False}.
+\emph{loop} das linhas 12-13 por outra \emph{list comprehension}...
+
+\begin{itemize}
+\tightlist
+\item
+  Os elementos selecionados pela \texttt{range} da linha 11 são
+  \texttt{crivo{[}k*k{]},\ crivo{[}k*k\ +\ 2*k{]},\ ...}.\\
+\item
+  Numa faixa \texttt{{[}esq...dir)} há
+  \texttt{(dir\ -\ 1\ -\ esq)\ //\ larg} intervalos de largura
+  \texttt{larg}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Por exemplo, veja a figura abaixo, supondo \(esq = 1\), \(dir = 10\)
+    e \(larg = 1, 2, \dots5\)\\
+    \includegraphics{../img/intervalos.png}
+  \end{itemize}
+\item
+  Adaptando para o nosso caso e incluindo o elemento inicial, ao todo
+  serão afetados\\
+  \texttt{(n\ -\ 1\ -\ k*k)\ //\ (2*k)\ +\ 1} elementos, cujos valores
+  devem passar para \texttt{False}.
+\end{itemize}
 
 Depois de implementar essa alteração, chegamos à nossa versão
 definitiva.
 
-\pagebreak
-\subsubsection{Solução}\label{soluuxe7uxe3o}
+    \subsubsection{Solução}\label{soluuxe7uxe3o}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{perf\PYZus{}counter}
          
-         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{primos[:6] + primos[\PYZhy{}6:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{n}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{demora}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}10\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZsh{}primos}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZgt{}8\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[:4]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:12\PYZcb{}  }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{P[\PYZhy{}4:]}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{1000000}\PY{p}{]}\PY{p}{:}
-             \PY{n}{raiz\PYZus{}n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}
                  
              \PY{n}{start} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
+             
              \PY{n}{crivo} \PY{o}{=} \PY{p}{[}\PY{k+kc}{True}\PY{p}{]} \PY{o}{*} \PY{n}{n}
-             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{raiz\PYZus{}n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
                  \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{:}
                      \PY{n}{crivo}\PY{p}{[}\PY{n}{k}\PY{o}{*}\PY{n}{k}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{k+kc}{False}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{k} \PY{o}{*} \PY{n}{k}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{k}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
-             \PY{n}{primos} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
-             \PY{c+c1}{\PYZsh{} primos = [2] + [i for (i, eh\PYZus{}primo) in enumerate(crivo) if eh\PYZus{}primo] }
+                     
+             \PY{n}{P} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{if} \PY{n}{crivo}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+         
              \PY{n}{end} \PY{o}{=} \PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
              
-             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(primos):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}primos[:6]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}primos[\PYZhy{}6:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}n:8\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{end \PYZhy{} start:10.5f\PYZcb{}  }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(P):8\PYZcb{}  }\PY{l+s+si}{\PYZob{}P[:4]\PYZcb{}}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZob{}P[\PYZhy{}4:]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-       n      demora   \#primos  primos[:6] + primos[-6:]
-      10     0.00254         4  [2, 3, 5, 7]  [2, 3, 5, 7]
-     100     0.00002        25  [2, 3, 5, 7, 11, 13]  [71, 73, 79, 83, 89, 97]
-    1000     0.00006       168  [2, 3, 5, 7, 11, 13]  [967, 971, 977, 983, 991, 997]
-   10000     0.00043      1229  [2, 3, 5, 7, 11, 13]  [9929, 9931, 9941, 9949, 9967, 9973]
-  100000     0.00456      9592  [2, 3, 5, 7, 11, 13]  [99923, 99929, 99961, 99971, 99989, 99991]
- 1000000     0.05430     78498  [2, 3, 5, 7, 11, 13]  [999931, 999953, 999959, 999961, 999979, 999983]
+       n      demora   \#primos  P[:4]         P[-4:]
+      10     0.00194         4  [2, 3, 5, 7]  [2, 3, 5, 7]
+     100     0.00001        25  [2, 3, 5, 7]  [79, 83, 89, 97]
+    1000     0.00006       168  [2, 3, 5, 7]  [977, 983, 991, 997]
+   10000     0.00034      1229  [2, 3, 5, 7]  [9941, 9949, 9967, 9973]
+  100000     0.00377      9592  [2, 3, 5, 7]  [99961, 99971, 99989, 99991]
+ 1000000     0.04960     78498  [2, 3, 5, 7]  [999959, 999961, 999979, 999983]
 
     \end{Verbatim}
 
-    Agora nosso algoritmo tem desempenho de gente grande...
+    E, agora, nosso algoritmo tem desempenho de gente grande...
 
 
     % Add a bibliography block to the postdoc
