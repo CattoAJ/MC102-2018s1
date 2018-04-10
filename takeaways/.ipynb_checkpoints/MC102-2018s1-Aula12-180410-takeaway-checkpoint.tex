@@ -1,0 +1,1183 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{MC102-2018s1-Aula12-180410}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+         \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \section{Revisitando Strings}\label{revisitando-strings}
+
+    \subsection{O modelo}\label{o-modelo}
+
+Uma \emph{string} é coleção sequencial e ordenada de caracteres. Os
+caracteres que compõem uma \emph{string} são idenficados por um
+\emph{índice} que indica sua posição na sequência.
+
+Os índices podem ser positivos (indicando a posição dos caracteres a
+partir do começo da \emph{string}) ou negativos (indicando a posição dos
+caracteres a partir do fim da \emph{string}), como mostra o diagrama
+abaixo.
+
+\begin{array}{| c | c | c | c | c | c | c | c | c | c | }
+ 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \hline
+ U & m & a &   & s & t & r & i & n & g & . \\ \hline
+ -11 & -10 & -9 & -8 & -7 & -6 & -5 & -4 & -3 & -2 & -1   
+\end{array}
+
+    \emph{Strings} são representadas entre aspas simples, duplas ou
+``triplas''. Nos dois primeiros casos, a \emph{string} deve ficar toda
+contida numa única linha; no terceiro, ela pode ocupar um número
+arbitrário de linhas.
+
+A \emph{string} nula ou vazia não contém caractere algum e é
+representada por '' ou "" (duas aspas simples ou duplas, sem nada no
+meio).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{cadeia\PYZus{}a} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cadeia\PYZus{}a}\PY{p}{)}  \PY{c+c1}{\PYZsh{} não vai mostrar nada...}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{cadeia\PYZus{}a}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} repr mostra as aspas delimitadoras}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+''
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{cadeia\PYZus{}b} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uma string.}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cadeia\PYZus{}b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Uma string.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{cadeia\PYZus{}c} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Outra string.}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cadeia\PYZus{}c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Outra string.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{cadeia\PYZus{}d} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{Uma cadeia}
+        \PY{l+s+s1}{com várias}
+        \PY{l+s+s1}{linhas}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cadeia\PYZus{}d}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Uma cadeia
+com várias
+linhas
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Os operadores + e * O operador \textbf{+}
+concatena \emph{strings} e o operador \textbf{*} repete (e ao mesmo
+tempo concatena)
+\emph{strings}.}{Os operadores + e * O operador + concatena strings e o operador * repete (e ao mesmo tempo concatena) strings.}}\label{os-operadores-e-o-operador-concatena-strings-e-o-operador-repete-e-ao-mesmo-tempo-concatena-strings.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{string\PYZus{}a} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{string\PYZus{}b} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bl}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{string\PYZus{}c} \PY{o}{=} \PY{n}{string\PYZus{}b} \PY{o}{+} \PY{n}{string\PYZus{}a}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{string\PYZus{}c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+bla-
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{string\PYZus{}d} \PY{o}{=} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{string\PYZus{}c}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{string\PYZus{}d}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+bla-bla-bla-
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Métodos e funções para
+\emph{strings}}{Métodos e funções para strings}}\label{muxe9todos-e-funuxe7uxf5es-para-strings}
+
+    \subsubsection{Conversão para maiúsculas e
+minúsculas}\label{conversuxe3o-para-maiuxfasculas-e-minuxfasculas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+laranja madura na beira da estrada
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LARANJA MADURA NA BEIRA DA ESTRADA
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{capitalize}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Laranja madura na beira da estrada
+
+    \end{Verbatim}
+
+    \subsubsection{Remoção de espaços à esquerda e à
+direita}\label{remouxe7uxe3o-de-espauxe7os-uxe0-esquerda-e-uxe0-direita}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{    Laranja Madura na Beira da Estrada   }\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{lstrip}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'Laranja Madura na Beira da Estrada   '
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'    Laranja Madura na Beira da Estrada'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'Laranja Madura na Beira da Estrada'
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Contagem e substituição de
+\emph{substrings}}{Contagem e substituição de substrings}}\label{contagem-e-substituiuxe7uxe3o-de-substrings}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+laRAnja maduRA na beiRA da estRAda
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Ajuste do comprimento da
+\emph{string}}{Ajuste do comprimento da string}}\label{ajuste-do-comprimento-da-string}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{ljust}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'Laranja Madura na Beira da Estrada                '
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{rjust}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'                Laranja Madura na Beira da Estrada'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{center}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'        Laranja Madura na Beira da Estrada        '
+
+    \end{Verbatim}
+
+    \subsubsection{Localizar uma subcadeia}\label{localizar-uma-subcadeia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{}\PYZsh{} acha primeira ocorrência do argumento a partir da esquerda}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{rfind}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{}\PYZsh{} acha primeira ocorrência do argumento a partir da direita}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+30
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{}\PYZsh{} find e rfind retornam \PYZhy{}1 se a subcadeia não for encontrada}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{rfind}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-1
+-1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{}\PYZsh{} o mesmo que find e rfind se a subcadeia for encontrada}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{rindex}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+30
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{}\PYZsh{} index e rindex causam um erro se a subcadeia não for encontrada}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-33-81a3cb646268> in <module>()
+    ----> 1 print(titulo.index('xx'))  \#\# index e rindex causam um erro se a subcadeia não for encontrada
+    
+
+        ValueError: substring not found
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{o}{.}\PY{n}{rindex}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-42-4c71121bc196> in <module>()
+    ----> 1 print(titulo.rindex('xx'))
+    
+
+        ValueError: substring not found
+
+    \end{Verbatim}
+
+    \subsubsection{Formatação}\label{formatauxe7uxe3o}
+
+Este é um método com muitos recursos que não podem ser completamente
+explorados aqui, mas os exemplos a seguir dão uma rápida ideia do que é
+possível fazer.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{7}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A média de }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ e }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ é }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{p}{(}\PY{n}{a} \PY{o}{+} \PY{n}{b} \PY{o}{+} \PY{n}{c}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A média de 10, 3 e 7 é 6.666666666666667.
+
+    \end{Verbatim}
+
+    Suponha que quiséssemos que todos os valores fossem exibidos com uma
+casa decimal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A média de }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+s1}{ e }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+s1}{ é }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{p}{(}\PY{n}{a} \PY{o}{+} \PY{n}{b} \PY{o}{+} \PY{n}{c}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A média de 10.0, 3.0 e 7.0 é 6.7.
+
+    \end{Verbatim}
+
+    O mesmo efeito pode ser conseguido colocando um \emph{f} à frente da
+\emph{string} de formato e incluindo as expressões nas chaves
+correspondentes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A média de }\PY{l+s+si}{\PYZob{}a:.1f\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}b:.1f\PYZcb{}}\PY{l+s+s1}{ e }\PY{l+s+si}{\PYZob{}c:.1f\PYZcb{}}\PY{l+s+s1}{ é }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(a + b + c) / 3:.1f\PYZcb{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A média de 10.0, 3.0 e 7.0 é 6.7.
+
+    \end{Verbatim}
+
+    Uma \emph{string} de formatação pode ser manipulada como qualquer outra
+\emph{string} de Python.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{mens\PYZus{}1} \PY{o}{=} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A média de }\PY{l+s+si}{\PYZob{}a:.1f\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}b:.1f\PYZcb{}}\PY{l+s+s1}{ e }\PY{l+s+si}{\PYZob{}c:.1f\PYZcb{}}\PY{l+s+s1}{ é }\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{mens\PYZus{}2} \PY{o}{=} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(a + b + c) / 3:.1f\PYZcb{}.}\PY{l+s+s1}{\PYZsq{}} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{mens\PYZus{}1} \PY{o}{+} \PY{n}{mens\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A média de 10.0, 3.0 e 7.0 é 6.7.
+
+    \end{Verbatim}
+
+    \subsubsection{Comprimento}\label{comprimento}
+
+A função \texttt{len} retorna o número de caracteres na \emph{string} à
+qual ela é aplicada.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{mascote} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tamanduá}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{mascote}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mascote}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tamanduá 8
+
+    \end{Verbatim}
+
+    Note que os índices positivos válidos para uma \emph{string} \(s\) são
+\(0, 1, \dots \mathrm{len}\left(s\right)-1\), enquanto os negativos são
+\(-1, -2, \dots -\mathrm{len}\left(s\right)\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{mascote}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{mascote}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mascote}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{mascote}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{mascote}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mascote}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+t á á t
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Fatiamento
+(\emph{slicing})}{Fatiamento (slicing)}}\label{fatiamento-slicing}
+
+\emph{Slices} (\emph{fatias}) são subcadeias que podem ser extraídas
+pelo '\emph{fatiador}', como no caso de listas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fruta} \PY{o}{=} \PY{n}{titulo}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n}{local} \PY{o}{=} \PY{n}{titulo}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{:}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{fruta}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{local}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'laranja' 'estrada'
+
+    \end{Verbatim}
+
+    O fatiador não dá erro caso receba um índice inválido. Quando isso
+acontece, ele usa um índice razoável.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sem\PYZus{}fruta} \PY{o}{=} \PY{n}{titulo}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{99}\PY{p}{]}
+         \PY{n}{sem\PYZus{}local} \PY{o}{=} \PY{n}{titulo}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{99}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{sem\PYZus{}fruta}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{sem\PYZus{}local}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'madura na beira da estrada' 'laranja madura na beira da'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{nums} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0123456789}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{impares} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{pares} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{inversa} \PY{o}{=} \PY{n}{nums}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{impares}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{pares}\PY{p}{)}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{inversa}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'0123456789' '13579' '02468' '9876543210'
+
+    \end{Verbatim}
+
+    \subsubsection{Comparação de cadeias}\label{comparauxe7uxe3o-de-cadeias}
+
+Os operadores de comparação podem ser usados normalmente. A comparação é
+lexicográfica e baseia-se no código de caracteres ASCII.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{menor}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ \PYZlt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  é}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{menor}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZlt{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'menor' < 'maior'  é False
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ \PYZlt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  é}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maior}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZlt{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'maior' < 'Maior'  é False
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ == }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  é}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maior}\PY{l+s+s1}{\PYZsq{}} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'maior' == 'Maior'  é False
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ != }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Maior}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  é}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maior}\PY{l+s+s1}{\PYZsq{}} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'maior' != 'Maior'  é True
+
+    \end{Verbatim}
+
+    O código de um caractere na tabela ASCII é dado pela função \texttt{ord}
+e o caractere correspondente a um dado código é dado pela função
+\texttt{chr}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ord(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{):3\PYZcb{} }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{chr(77)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ord(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{):3\PYZcb{} }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{chr(109)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ord(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{):3\PYZcb{} }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{chr(97)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ord(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{e}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{):3\PYZcb{} }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{chr(101)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ 77 M
+109 m
+ 97 a
+101 e
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{\emph{Strings} são
+imutáveis}{Strings são imutáveis}}\label{strings-suxe3o-imutuxe1veis}
+
+Ao contrário do que acontece com listas, não é possível alterar o
+conteúdo de uma \emph{string}.\\
+Qualquer tentativa nesse sentido causará um erro.\\
+Para conseguir uma variante da \emph{string} original primeiro é preciso
+criar uma cópia.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Maduro na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+o
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{titulo}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-58-1be28549ced2> in <module>()
+    ----> 1 titulo[13] = 'a'
+    
+
+        TypeError: 'str' object does not support item assignment
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{titulo\PYZus{}corr} \PY{o}{=} \PY{n}{titulo}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{13}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{titulo}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{:}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{titulo\PYZus{}corr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Laranja Madura na Beira da Estrada
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Percorrendo \emph{strings} com
+\emph{for}}{Percorrendo strings com for}}\label{percorrendo-strings-com-for}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uma string.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{texto}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+U m a   s t r i n g . 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uma string.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{texto}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{texto}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+U m a   s t r i n g . 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uma string.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{texto}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{texto}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+. g n i r t s   a m U 
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Percorrendo \emph{strings} com
+\emph{while}}{Percorrendo strings com while}}\label{percorrendo-strings-com-while}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uma string.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{while} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{texto}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{texto}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+U m a   s t r i n g . 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uma string.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{i} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{k}{while} \PY{n}{i} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{texto}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{texto}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{i} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+. g n i r t s   a m U 
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Os operadores \emph{in} e \emph{not
+in}}{Os operadores in e not in}}\label{os-operadores-in-e-not-in}
+
+Os operadores \emph{in} e \emph{not in} testam se uma \emph{string} é
+subcadeia de outra.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{titulo} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fruta} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{banana}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{banana}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ in titulo   }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fruta} \PY{o+ow}{in} \PY{n}{titulo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'banana' in titulo    False
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{banana}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ not in titulo   }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fruta} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{titulo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'banana' not in titulo    True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{subs} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{na Beira}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{subs} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ in titulo   }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{subs} \PY{o+ow}{in} \PY{n}{titulo}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{subs} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ not in titulo   }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{subs} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{titulo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'na Beira' in titulo    False
+'na Beira' not in titulo    True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{subs} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{na beira}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{subs} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ in titulo   }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{subs} \PY{o+ow}{in} \PY{n}{titulo}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{subs} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ not in titulo   }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{subs} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{titulo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'na beira' in titulo    True
+'na beira' not in titulo    False
+
+    \end{Verbatim}
+
+    \subsection{Exemplos}\label{exemplos}
+
+    \subsubsection{Remover todas as vogais de uma linha de
+texto}\label{remover-todas-as-vogais-de-uma-linha-de-texto}
+
+Como uma \emph{string} não pode ser modificada, temos que criar uma
+``cópia'' selecionando os caracteres que devem ser incluídos nela.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{É difícil não esquecer dos detalhes.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{vogais} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aáàãâeéêiíoóõôuú}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{vogais} \PY{o}{+}\PY{o}{=} \PY{n}{vogais}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{texto\PYZus{}sem\PYZus{}vogais} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{texto}\PY{p}{:}
+             \PY{k}{if} \PY{n}{c} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{vogais}\PY{p}{:}
+                 \PY{n}{texto\PYZus{}sem\PYZus{}vogais} \PY{o}{+}\PY{o}{=} \PY{n}{c}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{texto}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{texto\PYZus{}sem\PYZus{}vogais}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'É difícil não esquecer dos detalhes.'
+' dfcl n sqcr ds dtlhs.'
+
+    \end{Verbatim}
+
+    \subsubsection{Remover de uma cadeia todas as ocorrências de uma
+subcadeia
+dada}\label{remover-de-uma-cadeia-todas-as-ocorruxeancias-de-uma-subcadeia-dada}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{texto} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Laranja Madura na Beira da Estrada}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{    texto =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{texto}\PY{p}{)}\PY{p}{)}
+         \PY{n}{subs} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ra}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{     subs =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{subs}\PY{p}{)}\PY{p}{)}
+         \PY{n}{resultado} \PY{o}{=} \PY{n}{texto}
+         
+         \PY{n}{continuar} \PY{o}{=} \PY{k+kc}{True}
+         \PY{k}{while} \PY{n}{continuar}\PY{p}{:}
+             \PY{n}{ix} \PY{o}{=} \PY{n}{resultado}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{subs}\PY{p}{)}
+             \PY{k}{if} \PY{n}{ix} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{resultado} \PY{o}{=} \PY{n}{resultado}\PY{p}{[}\PY{p}{:}\PY{n}{ix}\PY{p}{]} \PY{o}{+} \PY{n}{resultado}\PY{p}{[}\PY{n}{ix} \PY{o}{+} \PY{n+nb}{len}\PY{p}{(}\PY{n}{subs}\PY{p}{)}\PY{p}{:}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{continuar} \PY{o}{=} \PY{k+kc}{False}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{resultado =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{resultado}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    texto = 'laranja madura na beira da estrada'
+     subs = 'ra'
+resultado = 'lanja madu na bei da estda'
+
+    \end{Verbatim}
+
+    \subsubsection{Verificar se uma frase é
+palíndroma}\label{verificar-se-uma-frase-uxe9-paluxedndroma}
+
+Dada uma frase, verificar se ela é palíndroma, desconsiderando acentos,
+espaços e pontuação. Uma frase é palíndroma se ela puder ser lida
+igualmente nos dois sentidos.
+
+    Um esboço de solução com alto nível de abstração poderia ser:
+
+\begin{itemize}
+\tightlist
+\item
+  ler a frase
+\item
+  eliminar caracteres a serem desconsiderados
+\item
+  verificar se é palíndroma
+\item
+  exibir o resultado da verificação
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} ler a frase original}
+         \PY{n}{frase\PYZus{}ori} \PY{o}{=} \PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digite uma frase: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Digite uma frase: Socorram-me, subi no ônibus em Marrocos!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+         
+         \PY{n}{alfabeto} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{ascii\PYZus{}lowercase}
+         \PY{n}{Alfabeto} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{ascii\PYZus{}uppercase}
+         \PY{n}{acentos} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{áàãâéêíóõôúç}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{sem\PYZus{}acentos} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aaaaeeiooouc}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{acentos} \PY{o}{+}\PY{o}{=} \PY{n}{acentos}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sem\PYZus{}acentos} \PY{o}{=} \PY{n}{sem\PYZus{}acentos} \PY{o}{*} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} criar frase modificada, }
+         \PY{c+c1}{\PYZsh{} omitindo caracteres a serem desconsiderados}
+         
+         \PY{n}{frase\PYZus{}mod} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{frase\PYZus{}ori}\PY{p}{:}
+             \PY{k}{if} \PY{n}{c} \PY{o+ow}{in} \PY{n}{alfabeto}\PY{p}{:}
+                 \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{c}
+             \PY{k}{elif} \PY{n}{c} \PY{o+ow}{in} \PY{n}{Alfabeto}\PY{p}{:}
+                 \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{alfabeto}\PY{p}{[}\PY{n}{Alfabeto}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{]}
+             \PY{k}{elif} \PY{n}{c} \PY{o+ow}{in} \PY{n}{acentos}\PY{p}{:}
+                 \PY{n}{frase\PYZus{}mod} \PY{o}{+}\PY{o}{=} \PY{n}{sem\PYZus{}acentos}\PY{p}{[}\PY{n}{acentos}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} verificar se a frase modificada é palíndroma}
+         
+         \PY{n}{meio} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frase\PYZus{}mod}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}
+         
+         \PY{n}{metade\PYZus{}esq} \PY{o}{=} \PY{n}{frase\PYZus{}mod}\PY{p}{[}\PY{p}{:}\PY{n}{meio}\PY{p}{]}
+         \PY{n}{metade\PYZus{}dir\PYZus{}rev} \PY{o}{=} \PY{n}{frase\PYZus{}mod}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{n}{meio}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n}{eh\PYZus{}palindroma} \PY{o}{=} \PY{p}{(}\PY{n}{metade\PYZus{}esq} \PY{o}{==} \PY{n}{metade\PYZus{}dir\PYZus{}rev}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} exibir o resultado da verificação}
+         \PY{k}{if} \PY{n}{eh\PYZus{}palindroma}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{frase\PYZus{}ori} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{é palíndroma.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{frase\PYZus{}ori} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{não é palíndroma.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'Socorram-me, subi no ônibus em Marrocos!' é palíndroma.
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
