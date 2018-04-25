@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{Fun\347\365es}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Como definir e chamar uma nova fun\347\343o}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Exemplo: Uma fun\347\343o para calcular o dobro de um n\372mero}{subsection.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.2}{Uma fun\347\343o pode n\343o ter uma lista de par\342metros}{section.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Exemplo: Ler e validar uma entrada num\351rica}{subsection.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.3}{Uma fun\347\343o pode produzir um efeito sem retornar qualquer resultado}{section.1}% 6
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Exemplo: Exibir um cabe\347alho}{subsection.1.3}% 7
+\BOOKMARK [2][-]{subsection.1.4}{Uma fun\347\343o pode retornar mais do que um resultado}{section.1}% 8
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Exemplo: Contar mai\372sculas, min\372sculas e outros caracteres numa string}{subsection.1.4}% 9
+\BOOKMARK [2][-]{subsection.1.5}{Uma fun\347\343o pode chamar outras fun\347\365es}{section.1}% 10
+\BOOKMARK [3][-]{subsubsection.1.5.1}{Exemplo: Calcular a soma dos quadrados de tr\352s par\342metros num\351ricos}{subsection.1.5}% 11
+\BOOKMARK [2][-]{subsection.1.6}{Uma fun\347\343o pode chamar a si mesma}{section.1}% 12
+\BOOKMARK [3][-]{subsubsection.1.6.1}{Exemplo: Calcular o fatorial de um inteiro n\343o-negativo}{subsection.1.6}% 13
+\BOOKMARK [2][-]{subsection.1.7}{Uma fun\347\343o pode definir vari\341veis locais}{section.1}% 14
+\BOOKMARK [3][-]{subsubsection.1.7.1}{Exemplo: Verificar se uma cadeia de caracteres \351 pal\355ndroma}{subsection.1.7}% 15
+\BOOKMARK [2][-]{subsection.1.8}{Mais exemplos...}{section.1}% 16
+\BOOKMARK [3][-]{subsubsection.1.8.1}{Calcular o maior de tr\352s n\372meros}{subsection.1.8}% 17
+\BOOKMARK [3][-]{subsubsection.1.8.2}{Inverter uma cadeia de caracteres}{subsection.1.8}% 18
+\BOOKMARK [3][-]{subsubsection.1.8.3}{Ler uma lista e retornar outra sem os elementos repetidos na primeira}{subsection.1.8}% 19
+\BOOKMARK [3][-]{subsubsection.1.8.4}{Exibir as n primeiras linhas do ``tri\342ngulo de Pascal''}{subsection.1.8}% 20
