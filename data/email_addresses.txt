@@ -1,0 +1,14 @@
+email@example.com
+firstname_lastname@example.com
+email@subdomain.example.com
+othername_lastname@example.com
+email4@123.123.123.123.com
+email5@123_123_123_123.com
+_email_@example.com
+1234567890@example.com
+email@example_one.com
+_______@example.com
+email1@example.name.com
+email2@example.museum.com
+email3@example.com
+firstname_secondname@example.com
